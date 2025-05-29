@@ -577,9 +577,27 @@
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ /* ... (unchanged) ... */ });
-        function colorToRGB(colorStr) { /* ... (unchanged) ... */ }
-        function getLuminance(r, g, b) { /* ... (unchanged) ... */ }
+        mermaid.initialize({
+                startOnLoad: false,
+                theme: 'dark',
+                securityLevel: 'loose',
+                themeVariables: {
+                    background: '#111827',
+                    mainBkg: '#111827',
+                    clusterBkg: '#1f2937',
+                    primaryColor: '#2d3748',
+                    primaryTextColor: '#ffffff',
+                    primaryBorderColor: '#4a5568',
+                    lineColor: '#a0aec0',       // Corrected subtle arrow color
+                    secondaryColor: '#4a5568',
+                    secondaryTextColor: '#ffffff',
+                    tertiaryColor: '#1f2937',
+                    noteBkgColor: '#1f2937',
+                    noteTextColor: '#e2e8f0',
+                    textColor: '#ffffff',
+                    arrowheadColor: '#a0aec0', // Corrected subtle arrowhead color
+                }
+            });
         function adjustTextColorsInSvg(svgElement) { /* ... (unchanged) ... */ }
         function colorToRGB(colorStr) { if (!colorStr) { return null; } const lowerColorStr = colorStr.toLowerCase(); if (lowerColorStr === 'transparent' || lowerColorStr === 'none') { return null; } const ctx = document.createElement('canvas').getContext('2d'); if (!ctx) { return null; } ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillStyle = colorStr; const computedColor = ctx.fillStyle; let match = computedColor.match(/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/); if (match) return { r: parseInt(match[1], 16), g: parseInt(match[2], 16), b: parseInt(match[3], 16) }; match = computedColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/); if (match) return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; match = computedColor.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/); if (match) { const alpha = parseFloat(match[4]); if (alpha < 0.1) { return null; } return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; } return null; }
         function getLuminance(r, g, b) { const RsRGB = r / 255; const GsRGB = g / 255; const BsRGB = b / 255; const R = (RsRGB <= 0.03928) ? RsRGB / 12.92 : Math.pow((RsRGB + 0.055) / 1.055, 2.4); const G = (GsRGB <= 0.03928) ? GsRGB / 12.92 : Math.pow((GsRGB + 0.055) / 1.055, 2.4); const B = (BsRGB <= 0.03928) ? BsRGB / 12.92 : Math.pow((BsRGB + 0.055) / 1.055, 2.4); return 0.2126 * R + 0.7152 * G + 0.0722 * B; }
