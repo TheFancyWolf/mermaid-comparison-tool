@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mermaid Diagram Comparison Tool - Dark Mode</title>
+    <link rel="icon"
+        href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231a202c' stroke='%234a5568' stroke-width='4'/%3E%3Crect x='20' y='25' width='30' height='20' rx='3' fill='%23e2e8f0'/%3E%3Crect x='50' y='55' width='30' height='20' rx='3' fill='%23e2e8f0'/%3E%3Cline x1='35' y1='45' x2='65' y2='55' stroke='%23e2e8f0' stroke-width='5'/%3E%3Cpolygon points='60,50 75,57.5 60,65' fill='%23e2e8f0'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -392,6 +394,16 @@
             color: #a0aec0;
         }
 
+        #aiExplanationText .ai-explanation-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #e2e8f0;
+            margin-bottom: 0.75em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #4a5568;
+            text-align: left;
+        }
+
         #aiExplanationText .ai-summary-heading {
             font-size: 1.1em;
             font-weight: 600;
@@ -462,18 +474,6 @@
         #aiExplanationText .api-key-instructions-error strong {
             color: #f87171;
         }
-
-        .ai-explanation-header {
-            /* New style for the header */
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #cbd5e0;
-            /* A lighter gray for the header */
-            margin-bottom: 1em;
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid #4a5568;
-            text-align: left;
-        }
     </style>
 </head>
 
@@ -536,8 +536,7 @@
                     </div>
                 </div>
             </div>
-            <div id="aiExplanationText" class="mt-6">
-            </div>
+            <div id="aiExplanationText" class="mt-6"></div>
         </div>
     </div>
 
@@ -609,7 +608,7 @@
         let activeSinglePaneType = 'old';
         const paneOld = { element: document.getElementById('paneOldDiagram'), diagramArea: document.getElementById('modalDiagramAreaOld'), svgContainer: document.getElementById('modalSvgContainerOld'), zoomLevelDisplay: document.getElementById('zoomLevelDisplayOld'), zoomInButton: document.getElementById('zoomInButtonOld'), zoomOutButton: document.getElementById('zoomOutButtonOld'), resetButton: document.getElementById('resetZoomButtonOld'), currentZoom: 1.0, originalWidth: 0, originalHeight: 0, isPanning: false, panStartX: 0, panStartY: 0, scrollLeftStart: 0, scrollTopStart: 0, singleViewZoom: undefined, singleViewScrollLeft: undefined, singleViewScrollTop: undefined, splitViewZoom: undefined, splitViewScrollLeft: undefined, splitViewScrollTop: undefined };
         const paneNew = { element: document.getElementById('paneNewDiagram'), diagramArea: document.getElementById('modalDiagramAreaNew'), svgContainer: document.getElementById('modalSvgContainerNew'), zoomLevelDisplay: document.getElementById('zoomLevelDisplayNew'), zoomInButton: document.getElementById('zoomInButtonNew'), zoomOutButton: document.getElementById('zoomOutButtonNew'), resetButton: document.getElementById('resetZoomButtonNew'), currentZoom: 1.0, originalWidth: 0, originalHeight: 0, isPanning: false, panStartX: 0, panStartY: 0, scrollLeftStart: 0, scrollTopStart: 0, singleViewZoom: undefined, singleViewScrollLeft: undefined, singleViewScrollTop: undefined, splitViewZoom: undefined, splitViewScrollLeft: undefined, splitViewScrollTop: undefined };
-        function setupPaneInteraction(pane) { function updateDisplay() { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; } function applyZoom() { const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement && pane.originalWidth > 0 && pane.originalHeight > 0) { svgElement.setAttribute('width', pane.originalWidth * pane.currentZoom); svgElement.setAttribute('height', pane.originalHeight * pane.currentZoom); } updateDisplay(); } function zoomAndRecenter(newZoom) { const oldZoom = pane.currentZoom; pane.currentZoom = newZoom; const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { applyZoom(); return; } const vpCenterX = pane.diagramArea.clientWidth / 2; const vpCenterY = pane.diagramArea.clientHeight / 2; const svgPtX = (pane.diagramArea.scrollLeft + vpCenterX) / oldZoom; const svgPtY = (pane.diagramArea.scrollTop + vpCenterY) / oldZoom; applyZoom(); pane.diagramArea.scrollLeft = (svgPtX * pane.currentZoom) - vpCenterX; pane.diagramArea.scrollTop = (svgPtY * pane.currentZoom) - vpCenterY; savePaneState(pane); } pane.zoomInButton.addEventListener('click', () => { if (pane.currentZoom < MAX_ZOOM) zoomAndRecenter(Math.min(pane.currentZoom + ZOOM_STEP, MAX_ZOOM)); }); pane.zoomOutButton.addEventListener('click', () => { if (pane.currentZoom > MIN_ZOOM) zoomAndRecenter(Math.max(pane.currentZoom - ZOOM_STEP, MIN_ZOOM)); }); pane.resetButton.addEventListener('click', () => { fitAndCenterPane(pane, true); }); pane.diagramArea.addEventListener('mousedown', (e) => { if (e.target.closest('button')) return; pane.isPanning = true; activePanningPane = pane; pane.panStartX = e.pageX; pane.panStartY = e.pageY; pane.scrollLeftStart = pane.diagramArea.scrollLeft; pane.scrollTopStart = pane.diagramArea.scrollTop; pane.diagramArea.classList.add('grabbing'); pane.diagramArea.style.userSelect = 'none'; }); }
+        function setupPaneInteraction(pane) { function updateDisplay() { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; } function applyZoom() { const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement && pane.originalWidth > 0 && pane.originalHeight > 0) { svgElement.setAttribute('width', pane.originalWidth * pane.currentZoom); svgElement.setAttribute('height', pane.originalHeight * pane.currentZoom); } updateDisplay(); } function zoomAndRecenter(newZoom, mouseX, mouseY) { const oldZoom = pane.currentZoom; pane.currentZoom = newZoom; const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { applyZoom(); return; } const vpCenterX = pane.diagramArea.clientWidth / 2; const vpCenterY = pane.diagramArea.clientHeight / 2; const svgPtX = (pane.diagramArea.scrollLeft + mouseX) / oldZoom; const svgPtY = (pane.diagramArea.scrollTop + mouseY) / oldZoom; applyZoom(); pane.diagramArea.scrollLeft = (svgPtX * pane.currentZoom) - mouseX; pane.diagramArea.scrollTop = (svgPtY * pane.currentZoom) - mouseY; savePaneState(pane); } pane.zoomInButton.addEventListener('click', () => { if (pane.currentZoom < MAX_ZOOM) zoomAndRecenter(Math.min(pane.currentZoom + ZOOM_STEP, MAX_ZOOM), pane.diagramArea.clientWidth / 2, pane.diagramArea.clientHeight / 2); }); pane.zoomOutButton.addEventListener('click', () => { if (pane.currentZoom > MIN_ZOOM) zoomAndRecenter(Math.max(pane.currentZoom - ZOOM_STEP, MIN_ZOOM), pane.diagramArea.clientWidth / 2, pane.diagramArea.clientHeight / 2); }); pane.resetButton.addEventListener('click', () => { fitAndCenterPane(pane, true); }); pane.diagramArea.addEventListener('wheel', (event) => { event.preventDefault(); const rect = pane.diagramArea.getBoundingClientRect(); const mouseX = event.clientX - rect.left; const mouseY = event.clientY - rect.top; if (event.deltaY < 0) { if (pane.currentZoom < MAX_ZOOM) zoomAndRecenter(Math.min(pane.currentZoom + ZOOM_STEP, MAX_ZOOM), mouseX, mouseY); } else { if (pane.currentZoom > MIN_ZOOM) zoomAndRecenter(Math.max(pane.currentZoom - ZOOM_STEP, MIN_ZOOM), mouseX, mouseY); } }); pane.diagramArea.addEventListener('mousedown', (e) => { if (e.target.closest('button')) return; pane.isPanning = true; activePanningPane = pane; pane.panStartX = e.pageX; pane.panStartY = e.pageY; pane.scrollLeftStart = pane.diagramArea.scrollLeft; pane.scrollTopStart = pane.diagramArea.scrollTop; pane.diagramArea.classList.add('grabbing'); pane.diagramArea.style.userSelect = 'none'; }); }
         let activePanningPane = null;
         window.addEventListener('mousemove', (e) => { const currentPane = activePanningPane; if (!currentPane || !currentPane.isPanning) return; const x = e.pageX; const y = e.pageY; const walkX = x - currentPane.panStartX; const walkY = y - currentPane.panStartY; currentPane.diagramArea.scrollLeft = currentPane.scrollLeftStart - walkX; currentPane.diagramArea.scrollTop = currentPane.scrollTopStart - walkY; });
         window.addEventListener('mouseup', (e) => { if (activePanningPane && activePanningPane.isPanning) { savePaneState(activePanningPane); activePanningPane.isPanning = false; activePanningPane.diagramArea.classList.remove('grabbing'); activePanningPane.diagramArea.style.userSelect = ''; } activePanningPane = null; });
@@ -634,7 +633,7 @@
                 return '<p class="text-gray-400">No comparison data received.</p>';
             }
             // Add a header before the AI's content
-            let html = '<h4 class="ai-explanation-header">Key Differences Identified by Gemini:</h4>';
+            let html = '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4>';
 
             let content = apiResponseText.replace(/^Differences:\s*/im, '').trim();
             const lines = content.split('\n');
@@ -660,7 +659,7 @@
                     let paragraph = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                     paragraph = paragraph.replace(/\*(.*?)\*/g, '<em>$1</em>');
                     paragraph = paragraph.replace(/`([^`]+)`/g, '<code>$1</code>');
-                    html += `<p>${paragraph}</p>`; // Use regular <p> for non-list items
+                    html += `<p>${paragraph}</p>`;
                 }
             });
 
@@ -668,11 +667,11 @@
                 html += '</ul>';
             }
 
-            if (html === '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4><ul></ul>' && content.length > 0 && !content.includes('* ') && !content.includes('- ') && !content.includes('+ ')) {
-                html = '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4>' + content.split('\n').filter(line => line.trim().length > 0)
+            if (html === '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4><ul></ul>' && content.length > 0 && !content.includes('* ') && !content.includes('- ') && !content.includes('+ ')) {
+                html = '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4>' + content.split('\n').filter(line => line.trim().length > 0)
                     .map(p => `<p>${p}</p>`).join('');
-            } else if (html === '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4>' || html === '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4><ul></ul>') {
-                html = '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4><p class="text-gray-400">No specific differences identified by the AI.</p>';
+            } else if (html === '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4>' || html === '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4><ul></ul>') {
+                html = '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4><p class="text-gray-400">No specific differences identified by the AI.</p>';
             }
             return html;
         }
@@ -683,17 +682,28 @@
             const aiExplanationOutput = document.getElementById('aiExplanationText');
             document.getElementById('comparisonOutputContainer').classList.remove('hidden');
             aiExplanationOutput.innerHTML = '';
-            document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering Old Diagram...</p>';
-            document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering New Diagram...</p>';
+
+            let oldRenderSuccess = false;
+            let newRenderSuccess = false;
+
+            if (mermaidCodeOld) {
+                document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering Old Diagram...</p>';
+                oldRenderSuccess = await renderMermaidDiagram(mermaidCodeOld, 'renderedDiagramOldOutput');
+            } else {
+                document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">No code for Old Diagram.</p>';
+            }
+
+            if (mermaidCodeNew) {
+                document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering New Diagram...</p>';
+                newRenderSuccess = await renderMermaidDiagram(mermaidCodeNew, 'renderedDiagramNewOutput');
+            } else {
+                document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">No code for New Diagram.</p>';
+            }
 
             if (!mermaidCodeOld || !mermaidCodeNew) {
-                aiExplanationOutput.innerHTML = '<p class="text-red-500 p-4 text-center">Please provide code for BOTH diagrams.</p>';
-                if (!mermaidCodeOld) document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-red-500 p-4 text-center">Missing Old Diagram code.</p>';
-                if (!mermaidCodeNew) document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-red-500 p-4 text-center">Missing New Diagram code.</p>';
+                aiExplanationOutput.innerHTML = '<p class="text-yellow-400 p-4 text-center">Please provide code for BOTH diagrams to perform an analysis by Gemini.</p>';
                 return;
             }
-            await renderMermaidDiagram(mermaidCodeOld, 'renderedDiagramOldOutput');
-            await renderMermaidDiagram(mermaidCodeNew, 'renderedDiagramNewOutput');
 
             aiExplanationOutput.innerHTML = '<div class="loader"></div> <p class="text-center text-gray-600">✨ AI is analyzing...</p>';
 
