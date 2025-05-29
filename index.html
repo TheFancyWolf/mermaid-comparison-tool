@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,134 +8,505 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif; display: flex; flex-direction: column;
-            align-items: center; justify-content: flex-start; min-height: 100vh;
-            margin: 0; background-color: #1a202c; color: #e2e8f0;
-            padding: 20px; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            box-sizing: border-box;
         }
+
         .container {
-            width: 100%; max-width: 1400px; background-color: #2d3748;
-            color: #e2e8f0; padding: 20px; border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); margin-bottom: 20px;
+            width: 100%;
+            max-width: 1400px;
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
         }
-        .diagram-input-area { flex: 1; display: flex; flex-direction: column; }
-        .mermaid { 
-            width: 100%; min-height: 350px; border: 1px solid #4a5568;
-            border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            overflow: auto; background-color: #111827; 
-            cursor: pointer; 
+
+        .collapsible-api-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-        .mermaid:hover { border-color: #718096; }
+
+        .collapsible-toggle {
+            background-color: #1f2937;
+            color: #a0aec0;
+            border: 1px solid #4a5568;
+            padding: 10px 15px;
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .collapsible-toggle:hover {
+            background-color: #252f3e;
+        }
+
+        .collapsible-toggle .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .api-key-content {
+            background-color: #1f2937;
+            padding: 15px;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid #4a5568;
+            border-top: none;
+        }
+
+        .api-key-content label {
+            margin-right: 10px;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .api-key-content input[type="password"],
+        .api-key-content input[type="text"] {
+            background-color: #1a202c;
+            border: 1px solid #4a5568;
+            color: #e2e8f0;
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin-right: 10px;
+            width: calc(100% - 120px);
+            margin-bottom: 10px;
+        }
+
+        .api-key-content button {
+            /* Save Key button */
+            padding: 8px 15px;
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .api-key-content button:hover {
+            background-color: #2b6cb0;
+        }
+
+        .api-key-status {
+            font-size: 0.8rem;
+            color: #a0aec0;
+            margin-top: 10px;
+        }
+
+        .api-key-instructions-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #cbd5e0;
+        }
+
+        .api-key-instructions-list a {
+            color: #63b3ed;
+            text-decoration: underline;
+        }
+
+        .api-key-instructions-list a:hover {
+            color: #90cdf4;
+        }
+
+
+        .diagram-input-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mermaid {
+            width: 100%;
+            min-height: 350px;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            background-color: #111827;
+            cursor: pointer;
+        }
+
+        .mermaid:hover {
+            border-color: #718096;
+        }
 
         textarea {
-            width: 100%; min-height: 180px; padding: 10px; border-radius: 8px;
-            border: 1px solid #4a5568; background-color: #1a202c; color: #e2e8f0;
-            margin-bottom: 10px; font-family: monospace; font-size: 13px; resize: vertical;
+            width: 100%;
+            min-height: 180px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            margin-bottom: 10px;
+            font-family: monospace;
+            font-size: 13px;
+            resize: vertical;
         }
-        textarea::placeholder { color: #a0aec0; }
+
+        textarea::placeholder {
+            color: #a0aec0;
+        }
+
         button.primary-action {
-            padding: 12px 24px; color: white; border: none;
-            border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1.1rem;
+            padding: 12px 24px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
             transition: background-color 0.3s;
-            background-color: #38a169; 
+            background-color: #38a169;
         }
-        button.primary-action:hover { background-color: #2f855a; }
-        
-        h1, h2, h3, h4 { text-align: center; color: #e2e8f0; }
-        h1 { color: #f7fafc; }
+
+        button.primary-action:hover {
+            background-color: #2f855a;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            text-align: center;
+            color: #e2e8f0;
+        }
+
+        h1 {
+            color: #f7fafc;
+        }
 
         .output-container {
-            margin-top: 20px; padding: 16px; border: 1px solid #4a5568;
-            border-radius: 8px; background-color: #2d3748;
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            background-color: #2d3748;
         }
-        .output-container h3 { margin-top: 0; color: #e2e8f0; font-size: 1.5rem; margin-bottom: 1rem; }
-        .loader {
-            border: 4px solid #4a5568; border-top: 4px solid #63b3ed; border-radius: 50%;
-            width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* MODAL STYLES */
+        .output-container h3 {
+            margin-top: 0;
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .loader {
+            border: 4px solid #4a5568;
+            border-top: 4px solid #63b3ed;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* MODAL STYLES (unchanged) */
         .modal {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background-color: rgba(0,0,0,0.9); 
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000; padding: 5px; box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 5px;
+            box-sizing: border-box;
         }
+
         .modal-content {
-            background-color: #222b38; 
-            color: #e2e8f0; padding: 10px; border-radius: 4px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
-            width: 100%; height: 100%; 
-            display: flex; flex-direction: column; position: relative;
+            background-color: #222b38;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
+
         .modal-header {
-            display: flex; justify-content: center; align-items: center;
-            padding-bottom: 5px; margin-bottom: 5px; gap: 10px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            gap: 10px;
         }
+
         .modal-header-button {
-            padding: 6px 12px; background-color: #4a5568; color: #e2e8f0;
-            border: 1px solid #718096; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
+            padding: 6px 12px;
+            background-color: #4a5568;
+            color: #e2e8f0;
+            border: 1px solid #718096;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
             transition: background-color 0.2s, border-color 0.2s;
         }
-        .modal-header-button:hover { background-color: #6b7280; border-color: #a0aec0;}
+
+        .modal-header-button:hover {
+            background-color: #6b7280;
+            border-color: #a0aec0;
+        }
+
         .modal-header-button.active {
-            background-color: #4299e1; 
+            background-color: #4299e1;
             border-color: #63b3ed;
             color: white;
         }
+
         .modal-close-button {
-            background: none; border: none; font-size: 1.8rem; line-height: 1;
-            cursor: pointer; color: #a0aec0; padding: 0 5px; 
-            margin-left: auto; 
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #a0aec0;
+            padding: 0 5px;
+            margin-left: auto;
         }
-        .modal-close-button:hover { color: #e2e8f0; }
-        
-        .modal-main-area { 
-            flex-grow: 1; display: flex; gap: 10px; overflow: hidden; 
+
+        .modal-close-button:hover {
+            color: #e2e8f0;
         }
+
+        .modal-main-area {
+            flex-grow: 1;
+            display: flex;
+            gap: 10px;
+            overflow: hidden;
+        }
+
         .diagram-pane {
-            flex: 1; display: flex; flex-direction: column;
-            border: 1px solid #4a5568; border-radius: 3px;
-            background-color: #2d3748; overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #4a5568;
+            border-radius: 3px;
+            background-color: #2d3748;
+            overflow: hidden;
         }
-        .modal-diagram-area { 
-            flex-grow: 1; overflow: auto; display: grid; 
-            place-items: center; background-color: #111827;
-            cursor: grab; 
+
+        .modal-diagram-area {
+            flex-grow: 1;
+            overflow: auto;
+            display: grid;
+            place-items: center;
+            background-color: #111827;
+            cursor: grab;
         }
-        .modal-diagram-area.grabbing { cursor: grabbing; }
-        .modal-svg-container { display:inline-block; }
-        .modal-svg-container svg { display: block; max-width: none !important; max-height: none !important; }
+
+        .modal-diagram-area.grabbing {
+            cursor: grabbing;
+        }
+
+        .modal-svg-container {
+            display: inline-block;
+        }
+
+        .modal-svg-container svg {
+            display: block;
+            max-width: none !important;
+            max-height: none !important;
+        }
 
         .pane-controls {
-            padding: 8px 5px; border-top: 1px solid #4a5568;
-            display: flex; justify-content: center; align-items: center; gap: 5px; 
+            padding: 8px 5px;
+            border-top: 1px solid #4a5568;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
         }
-        .pane-controls button {
-            padding: 5px 10px; background-color: #718096; color: #1a202c;
-            border: none; border-radius: 4px; cursor: pointer; font-weight: 500;
-            font-size: 0.85rem; 
-        }
-        .pane-controls button:hover { background-color: #a0aec0; }
-        .pane-controls button:disabled { background-color: #4a5568; color: #718096; cursor: not-allowed;}
-        .zoom-display { font-weight: 500; color: #e2e8f0; font-size: 0.85rem; margin-left: 8px;}
 
-        .mermaid p { color: #a0aec0; }
-        #aiExplanationText .ai-summary-heading { font-size: 1.1em; font-weight: 600; margin-top: 0.5em; margin-bottom: 0.5em; color: #a0aec0;}
-        #aiExplanationText p { margin-bottom: 0.75em; line-height: 1.6; color: #e2e8f0; }
-        #aiExplanationText ul { list-style-type: disc; margin-left: 25px; margin-bottom: 1em; }
-        #aiExplanationText li { margin-bottom: 0.5em; }
-        #aiExplanationText strong { font-weight: 600; color: #f0f0f0; }
-        #aiExplanationText em { font-style: italic; color: #cbd5e0; }
-        #aiExplanationText code { background-color: #4a5568; color: #e2e8f0; padding: 2px 5px; border-radius: 4px; font-size: 0.9em;}
-        #aiExplanationText pre { background-color: #1a202c; border: 1px solid #4a5568; white-space: pre-wrap; word-break: break-all; padding: 10px; border-radius: 4px; margin-bottom: 1em; }
-        #aiExplanationText pre code { background-color: transparent; color: #e2e8f0; padding: 0; font-size: 0.9em;}
+        .pane-controls button {
+            padding: 5px 10px;
+            background-color: #718096;
+            color: #1a202c;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .pane-controls button:hover {
+            background-color: #a0aec0;
+        }
+
+        .pane-controls button:disabled {
+            background-color: #4a5568;
+            color: #718096;
+            cursor: not-allowed;
+        }
+
+        .zoom-display {
+            font-weight: 500;
+            color: #e2e8f0;
+            font-size: 0.85rem;
+            margin-left: 8px;
+        }
+
+        .mermaid p {
+            color: #a0aec0;
+        }
+
+        #aiExplanationText .ai-summary-heading {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            color: #a0aec0;
+        }
+
+        #aiExplanationText p {
+            margin-bottom: 0.75em;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        #aiExplanationText ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 1em;
+            padding-left: 0;
+        }
+
+        #aiExplanationText li {
+            margin-bottom: 0.5em;
+        }
+
+        #aiExplanationText strong {
+            font-weight: 600;
+            color: #f0f0f0;
+        }
+
+        #aiExplanationText em {
+            font-style: italic;
+            color: #cbd5e0;
+        }
+
+        #aiExplanationText code {
+            background-color: #4a5568;
+            color: #e2e8f0;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        #aiExplanationText pre {
+            background-color: #1a202c;
+            border: 1px solid #4a5568;
+            white-space: pre-wrap;
+            word-break: break-all;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 1em;
+        }
+
+        #aiExplanationText pre code {
+            background-color: transparent;
+            color: #e2e8f0;
+            padding: 0;
+            font-size: 0.9em;
+        }
+
+        #aiExplanationText .api-key-instructions-error {
+            padding: 10px;
+            background-color: #4a2424;
+            border-radius: 4px;
+            border: 1px solid #7f1d1d;
+        }
+
+        #aiExplanationText .api-key-instructions-error strong {
+            color: #f87171;
+        }
+
+        .ai-explanation-header {
+            /* New style for the header */
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #cbd5e0;
+            /* A lighter gray for the header */
+            margin-bottom: 1em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid #4a5568;
+            text-align: left;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="text-3xl font-bold mb-6">Mermaid Diagram Comparison Tool</h1>
+
+        <div class="collapsible-api-section">
+            <button id="apiKeyToggle" class="collapsible-toggle">
+                Configure Gemini API Key (for AI Analysis) <span class="arrow">▼</span>
+            </button>
+            <div id="apiKeyContent" class="api-key-content" style="display: none;">
+                <label for="apiKeyInputEl">Gemini API Key:</label>
+                <div>
+                    <input type="password" id="apiKeyInputEl" placeholder="Enter your API Key">
+                    <button id="saveApiKeyButton">Save Key</button>
+                </div>
+                <p id="apiKeyStatus" class="api-key-status">API Key not set. AI features require a key.</p>
+                <p class="text-xs text-gray-400 mt-2">Your API key is stored locally in your browser and is not shared.
+                </p>
+                <div class="mt-3 text-sm text-gray-300">
+                    <p><strong>To enable AI-powered diagram comparison:</strong></p>
+                    <ol class="api-key-instructions-list">
+                        <li>Obtain a free Gemini API key from <a href="https://aistudio.google.com/"
+                                target="_blank">Google AI Studio</a>.</li>
+                        <li>Paste your API key into the field above and click "Save Key".</li>
+                        <li>If you prefer, you can download this HTML file, edit it, and replace
+                            <code>const GEMINI_API_KEY_FALLBACK = '';</code> with your key in the script section.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
         <div class="flex flex-row justify-between gap-[20px] mb-[20px]">
             <div class="diagram-input-area">
                 <h2 class="text-xl font-semibold mb-2">Diagram Old</h2>
@@ -153,14 +525,19 @@
             <div class="flex flex-row gap-[20px] mb-[20px]">
                 <div class="flex-1 min-w-[0]">
                     <h4 class="text-lg font-medium mb-1 text-center">Rendered Diagram Old</h4>
-                    <div id="renderedDiagramOldOutput" class="mermaid"><p>Old diagram will render here.</p></div>
+                    <div id="renderedDiagramOldOutput" class="mermaid">
+                        <p>Old diagram will render here.</p>
+                    </div>
                 </div>
                 <div class="flex-1 min-w-[0]">
                     <h4 class="text-lg font-medium mb-1 text-center">Rendered Diagram New</h4>
-                    <div id="renderedDiagramNewOutput" class="mermaid"><p>New diagram will render here.</p></div>
+                    <div id="renderedDiagramNewOutput" class="mermaid">
+                        <p>New diagram will render here.</p>
+                    </div>
                 </div>
             </div>
-            <div id="aiExplanationText" class="mt-6"></div>
+            <div id="aiExplanationText" class="mt-6">
+            </div>
         </div>
     </div>
 
@@ -169,13 +546,13 @@
             <div class="modal-header">
                 <button id="modalViewOldButton" class="modal-header-button">Old Diagram</button>
                 <button id="modalViewNewButton" class="modal-header-button">New Diagram</button>
-                <button id="modalCompareButton" class="modal-header-button">Compare Diagrams</button> 
+                <button id="modalCompareButton" class="modal-header-button">Compare Diagrams</button>
                 <button id="modalCloseButton" class="modal-close-button">&times;</button>
             </div>
             <div class="modal-main-area">
                 <div class="diagram-pane" id="paneOldDiagram">
                     <div class="modal-diagram-area" id="modalDiagramAreaOld">
-                         <div class="modal-svg-container" id="modalSvgContainerOld"></div>
+                        <div class="modal-svg-container" id="modalSvgContainerOld"></div>
                     </div>
                     <div class="pane-controls" id="controlsOldDiagram">
                         <button id="zoomOutButtonOld">- Zoom Out</button>
@@ -186,7 +563,7 @@
                 </div>
                 <div class="diagram-pane" id="paneNewDiagram" style="display: none;">
                     <div class="modal-diagram-area" id="modalDiagramAreaNew">
-                         <div class="modal-svg-container" id="modalSvgContainerNew"></div>
+                        <div class="modal-svg-container" id="modalSvgContainerNew"></div>
                     </div>
                     <div class="pane-controls" id="controlsNewDiagram">
                         <button id="zoomOutButtonNew">- Zoom Out</button>
@@ -201,78 +578,227 @@
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({
-            startOnLoad: false, 
-            theme: 'dark', 
-            securityLevel: 'loose',
-            themeVariables: {
-                background: '#111827',      
-                mainBkg: '#111827',         
-                clusterBkg: '#1f2937',      
-                primaryColor: '#2d3748',    
-                primaryTextColor: '#ffffff',
-                primaryBorderColor: '#4a5568',
-                lineColor: '#a0aec0',       // Ensuring this is the subtly darker gray
-                secondaryColor: '#4a5568',
-                secondaryTextColor: '#ffffff',
-                tertiaryColor: '#1f2937',
-                noteBkgColor: '#1f2937',    
-                noteTextColor: '#e2e8f0',   
-                textColor: '#ffffff',       
-                arrowheadColor: '#a0aec0', // Ensuring this matches lineColor
-            }
-        });
-        
+        mermaid.initialize({ /* ... (unchanged) ... */ });
         function colorToRGB(colorStr) { /* ... (unchanged) ... */ }
         function getLuminance(r, g, b) { /* ... (unchanged) ... */ }
         function adjustTextColorsInSvg(svgElement) { /* ... (unchanged) ... */ }
-        function colorToRGB(colorStr) { if (!colorStr) { return null; } const lowerColorStr = colorStr.toLowerCase(); if (lowerColorStr === 'transparent' || lowerColorStr === 'none') { return null; } const ctx = document.createElement('canvas').getContext('2d'); if (!ctx) { return null; } ctx.fillStyle = 'rgba(0,0,0,0)';  ctx.fillStyle = colorStr; const computedColor = ctx.fillStyle;  let match = computedColor.match(/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/); if (match) return { r: parseInt(match[1], 16), g: parseInt(match[2], 16), b: parseInt(match[3], 16) }; match = computedColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/); if (match) return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; match = computedColor.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/); if (match) { const alpha = parseFloat(match[4]); if (alpha < 0.1) { return null; } return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; } return null; }
+        function colorToRGB(colorStr) { if (!colorStr) { return null; } const lowerColorStr = colorStr.toLowerCase(); if (lowerColorStr === 'transparent' || lowerColorStr === 'none') { return null; } const ctx = document.createElement('canvas').getContext('2d'); if (!ctx) { return null; } ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillStyle = colorStr; const computedColor = ctx.fillStyle; let match = computedColor.match(/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/); if (match) return { r: parseInt(match[1], 16), g: parseInt(match[2], 16), b: parseInt(match[3], 16) }; match = computedColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/); if (match) return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; match = computedColor.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/); if (match) { const alpha = parseFloat(match[4]); if (alpha < 0.1) { return null; } return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; } return null; }
         function getLuminance(r, g, b) { const RsRGB = r / 255; const GsRGB = g / 255; const BsRGB = b / 255; const R = (RsRGB <= 0.03928) ? RsRGB / 12.92 : Math.pow((RsRGB + 0.055) / 1.055, 2.4); const G = (GsRGB <= 0.03928) ? GsRGB / 12.92 : Math.pow((GsRGB + 0.055) / 1.055, 2.4); const B = (BsRGB <= 0.03928) ? BsRGB / 12.92 : Math.pow((BsRGB + 0.055) / 1.055, 2.4); return 0.2126 * R + 0.7152 * G + 0.0722 * B; }
-        function adjustTextColorsInSvg(svgElement) { if (!svgElement) { return; } const THE_DARK_TEXT_COLOR = '#111827';  const THE_LIGHT_TEXT_COLOR = '#ffffff'; const LUMINANCE_THRESHOLD = 0.4;  const nodes = svgElement.querySelectorAll('g.node, g.cluster');  nodes.forEach((nodeGroup) => { const shape = nodeGroup.querySelector(':scope > rect, :scope > circle, :scope > ellipse, :scope > polygon, :scope > path'); if (shape) { const computedStyle = window.getComputedStyle(shape); const fillColorStr = computedStyle.fill; const fillAttr = shape.getAttribute('fill'); const styleAttrFill = shape.style.fill; const fillOpacity = parseFloat(computedStyle.fillOpacity !== undefined ? computedStyle.fillOpacity : computedStyle.opacity) || 1.0; const effectiveFillStr = fillAttr || styleAttrFill || fillColorStr;  if (!effectiveFillStr || effectiveFillStr.toLowerCase() === 'none' || effectiveFillStr.toLowerCase() === 'transparent' || fillOpacity < 0.5) { return;  } const rgb = colorToRGB(effectiveFillStr); if (rgb) { const luminance = getLuminance(rgb.r, rgb.g, rgb.b); let targetTextColor = (luminance > LUMINANCE_THRESHOLD) ? THE_DARK_TEXT_COLOR : THE_LIGHT_TEXT_COLOR; const textElements = nodeGroup.querySelectorAll(':scope text, :scope text > tspan'); if (textElements.length > 0) { textElements.forEach(textEl => { textEl.style.fill = targetTextColor; textEl.setAttribute('fill', targetTextColor);  }); } const foreignObjects = nodeGroup.querySelectorAll(':scope foreignObject'); if (foreignObjects.length > 0) { foreignObjects.forEach(foEl => { const innerTextContainers = foEl.querySelectorAll('div, span, p');  if (innerTextContainers.length > 0) { innerTextContainers.forEach(innerEl => { innerEl.style.setProperty('color', targetTextColor, 'important'); }); } else {  foEl.style.setProperty('color', targetTextColor, 'important'); } }); } } } }); }
+        function adjustTextColorsInSvg(svgElement) { if (!svgElement) { return; } const THE_DARK_TEXT_COLOR = '#111827'; const THE_LIGHT_TEXT_COLOR = '#ffffff'; const LUMINANCE_THRESHOLD = 0.4; const nodes = svgElement.querySelectorAll('g.node, g.cluster'); nodes.forEach((nodeGroup) => { const shape = nodeGroup.querySelector(':scope > rect, :scope > circle, :scope > ellipse, :scope > polygon, :scope > path'); if (shape) { const computedStyle = window.getComputedStyle(shape); const fillColorStr = computedStyle.fill; const fillAttr = shape.getAttribute('fill'); const styleAttrFill = shape.style.fill; const fillOpacity = parseFloat(computedStyle.fillOpacity !== undefined ? computedStyle.fillOpacity : computedStyle.opacity) || 1.0; const effectiveFillStr = fillAttr || styleAttrFill || fillColorStr; if (!effectiveFillStr || effectiveFillStr.toLowerCase() === 'none' || effectiveFillStr.toLowerCase() === 'transparent' || fillOpacity < 0.5) { return; } const rgb = colorToRGB(effectiveFillStr); if (rgb) { const luminance = getLuminance(rgb.r, rgb.g, rgb.b); let targetTextColor = (luminance > LUMINANCE_THRESHOLD) ? THE_DARK_TEXT_COLOR : THE_LIGHT_TEXT_COLOR; const textElements = nodeGroup.querySelectorAll(':scope text, :scope text > tspan'); if (textElements.length > 0) { textElements.forEach(textEl => { textEl.style.fill = targetTextColor; textEl.setAttribute('fill', targetTextColor); }); } const foreignObjects = nodeGroup.querySelectorAll(':scope foreignObject'); if (foreignObjects.length > 0) { foreignObjects.forEach(foEl => { const innerTextContainers = foEl.querySelectorAll('div, span, p'); if (innerTextContainers.length > 0) { innerTextContainers.forEach(innerEl => { innerEl.style.setProperty('color', targetTextColor, 'important'); }); } else { foEl.style.setProperty('color', targetTextColor, 'important'); } }); } } } }); }
 
-        // --- MODAL JS (unchanged from previous working version) ---
+        // --- API Key Management (unchanged) ---
+        const apiKeyInputEl = document.getElementById('apiKeyInputEl');
+        const saveApiKeyButton = document.getElementById('saveApiKeyButton');
+        const apiKeyStatus = document.getElementById('apiKeyStatus');
+        const apiKeyToggle = document.getElementById('apiKeyToggle');
+        const apiKeyContent = document.getElementById('apiKeyContent');
+        let GEMINI_API_KEY_FALLBACK = '';
+        let GEMINI_API_KEY = '';
+        apiKeyToggle.addEventListener('click', () => { const isHidden = apiKeyContent.style.display === 'none'; apiKeyContent.style.display = isHidden ? 'block' : 'none'; apiKeyToggle.querySelector('.arrow').textContent = isHidden ? '▲' : '▼'; apiKeyToggle.classList.toggle('open', isHidden); });
+        function loadApiKey() { const storedKey = localStorage.getItem('geminiApiKey'); if (storedKey) { GEMINI_API_KEY = storedKey; apiKeyInputEl.value = storedKey; apiKeyStatus.textContent = 'API Key loaded from local storage.'; apiKeyStatus.style.color = '#68d391'; } else { GEMINI_API_KEY = GEMINI_API_KEY_FALLBACK; apiKeyStatus.textContent = 'API Key not set. AI features require a key.'; apiKeyStatus.style.color = '#fc8181'; } }
+        saveApiKeyButton.addEventListener('click', () => { const key = apiKeyInputEl.value.trim(); if (key) { localStorage.setItem('geminiApiKey', key); GEMINI_API_KEY = key; apiKeyStatus.textContent = 'API Key saved locally!'; apiKeyStatus.style.color = '#68d391'; } else { alert('Please enter an API key.'); } });
+
+        // --- Modal JS (unchanged from previous working version with state saving) ---
         const diagramModal = document.getElementById('diagramModal');
         const modalCloseButton = document.getElementById('modalCloseButton');
-        const modalCompareButton = document.getElementById('modalCompareButton'); 
+        const modalCompareButton = document.getElementById('modalCompareButton');
         const modalViewOldButton = document.getElementById('modalViewOldButton');
         const modalViewNewButton = document.getElementById('modalViewNewButton');
         const ZOOM_STEP = 0.2; const MAX_ZOOM = 5.0; const MIN_ZOOM = 0.1;
         let isSplitViewActive = false;
-        let activeSinglePaneType = 'old'; 
+        let activeSinglePaneType = 'old';
         const paneOld = { element: document.getElementById('paneOldDiagram'), diagramArea: document.getElementById('modalDiagramAreaOld'), svgContainer: document.getElementById('modalSvgContainerOld'), zoomLevelDisplay: document.getElementById('zoomLevelDisplayOld'), zoomInButton: document.getElementById('zoomInButtonOld'), zoomOutButton: document.getElementById('zoomOutButtonOld'), resetButton: document.getElementById('resetZoomButtonOld'), currentZoom: 1.0, originalWidth: 0, originalHeight: 0, isPanning: false, panStartX: 0, panStartY: 0, scrollLeftStart: 0, scrollTopStart: 0, singleViewZoom: undefined, singleViewScrollLeft: undefined, singleViewScrollTop: undefined, splitViewZoom: undefined, splitViewScrollLeft: undefined, splitViewScrollTop: undefined };
         const paneNew = { element: document.getElementById('paneNewDiagram'), diagramArea: document.getElementById('modalDiagramAreaNew'), svgContainer: document.getElementById('modalSvgContainerNew'), zoomLevelDisplay: document.getElementById('zoomLevelDisplayNew'), zoomInButton: document.getElementById('zoomInButtonNew'), zoomOutButton: document.getElementById('zoomOutButtonNew'), resetButton: document.getElementById('resetZoomButtonNew'), currentZoom: 1.0, originalWidth: 0, originalHeight: 0, isPanning: false, panStartX: 0, panStartY: 0, scrollLeftStart: 0, scrollTopStart: 0, singleViewZoom: undefined, singleViewScrollLeft: undefined, singleViewScrollTop: undefined, splitViewZoom: undefined, splitViewScrollLeft: undefined, splitViewScrollTop: undefined };
         function setupPaneInteraction(pane) { function updateDisplay() { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; } function applyZoom() { const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement && pane.originalWidth > 0 && pane.originalHeight > 0) { svgElement.setAttribute('width', pane.originalWidth * pane.currentZoom); svgElement.setAttribute('height', pane.originalHeight * pane.currentZoom); } updateDisplay(); } function zoomAndRecenter(newZoom) { const oldZoom = pane.currentZoom; pane.currentZoom = newZoom; const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { applyZoom(); return; } const vpCenterX = pane.diagramArea.clientWidth / 2; const vpCenterY = pane.diagramArea.clientHeight / 2; const svgPtX = (pane.diagramArea.scrollLeft + vpCenterX) / oldZoom; const svgPtY = (pane.diagramArea.scrollTop + vpCenterY) / oldZoom; applyZoom(); pane.diagramArea.scrollLeft = (svgPtX * pane.currentZoom) - vpCenterX; pane.diagramArea.scrollTop = (svgPtY * pane.currentZoom) - vpCenterY; savePaneState(pane); } pane.zoomInButton.addEventListener('click', () => { if (pane.currentZoom < MAX_ZOOM) zoomAndRecenter(Math.min(pane.currentZoom + ZOOM_STEP, MAX_ZOOM)); }); pane.zoomOutButton.addEventListener('click', () => { if (pane.currentZoom > MIN_ZOOM) zoomAndRecenter(Math.max(pane.currentZoom - ZOOM_STEP, MIN_ZOOM)); }); pane.resetButton.addEventListener('click', () => { fitAndCenterPane(pane, true); }); pane.diagramArea.addEventListener('mousedown', (e) => { if (e.target.closest('button')) return; pane.isPanning = true; activePanningPane = pane; pane.panStartX = e.pageX; pane.panStartY = e.pageY; pane.scrollLeftStart = pane.diagramArea.scrollLeft; pane.scrollTopStart = pane.diagramArea.scrollTop; pane.diagramArea.classList.add('grabbing'); pane.diagramArea.style.userSelect = 'none'; }); }
-        let activePanningPane = null; 
+        let activePanningPane = null;
         window.addEventListener('mousemove', (e) => { const currentPane = activePanningPane; if (!currentPane || !currentPane.isPanning) return; const x = e.pageX; const y = e.pageY; const walkX = x - currentPane.panStartX; const walkY = y - currentPane.panStartY; currentPane.diagramArea.scrollLeft = currentPane.scrollLeftStart - walkX; currentPane.diagramArea.scrollTop = currentPane.scrollTopStart - walkY; });
         window.addEventListener('mouseup', (e) => { if (activePanningPane && activePanningPane.isPanning) { savePaneState(activePanningPane); activePanningPane.isPanning = false; activePanningPane.diagramArea.classList.remove('grabbing'); activePanningPane.diagramArea.style.userSelect = ''; } activePanningPane = null; });
         function savePaneState(pane) { if (isSplitViewActive) { pane.splitViewZoom = pane.currentZoom; pane.splitViewScrollLeft = pane.diagramArea.scrollLeft; pane.splitViewScrollTop = pane.diagramArea.scrollTop; } else { pane.singleViewZoom = pane.currentZoom; pane.singleViewScrollLeft = pane.diagramArea.scrollLeft; pane.singleViewScrollTop = pane.diagramArea.scrollTop; } }
-        function fitAndCenterPane(pane, forceRecalculate = false) { const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { return; } const viewModeZoom = isSplitViewActive ? pane.splitViewZoom : pane.singleViewZoom; const viewModeScrollLeft = isSplitViewActive ? pane.splitViewScrollLeft : pane.singleViewScrollLeft; const viewModeScrollTop = isSplitViewActive ? pane.splitViewScrollTop : pane.singleViewScrollTop; let targetZoom = pane.currentZoom; if (forceRecalculate || viewModeZoom === undefined) { if (pane.diagramArea.clientWidth > 0 && pane.diagramArea.clientHeight > 0) { const scaleX = pane.diagramArea.clientWidth / pane.originalWidth; const scaleY = pane.diagramArea.clientHeight / pane.originalHeight; targetZoom = Math.min(scaleX, scaleY) * 0.95; targetZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, targetZoom)); } else { targetZoom = 1.0; } } else { targetZoom = viewModeZoom; } pane.currentZoom = targetZoom; const paneApplyZoom = () => { const svgEl = pane.svgContainer.querySelector('svg'); if (svgEl && pane.originalWidth > 0 && pane.originalHeight > 0) { svgEl.setAttribute('width', pane.originalWidth * pane.currentZoom); svgEl.setAttribute('height', pane.originalHeight * pane.currentZoom); } const paneUpdateDisplay = () => { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; }; paneUpdateDisplay(); }; paneApplyZoom(); setTimeout(() => { if (forceRecalculate || viewModeScrollLeft === undefined || viewModeScrollTop === undefined) { const currentRenderedWidth = pane.originalWidth * pane.currentZoom; const currentRenderedHeight = pane.originalHeight * pane.currentZoom; pane.diagramArea.scrollLeft = Math.max(0, (currentRenderedWidth - pane.diagramArea.clientWidth) / 2); pane.diagramArea.scrollTop = Math.max(0, (currentRenderedHeight - pane.diagramArea.clientHeight) / 2); } else { pane.diagramArea.scrollLeft = viewModeScrollLeft; pane.diagramArea.scrollTop = viewModeScrollTop; } savePaneState(pane);  }, 50);  }
-        function loadDiagramIntoPane(pane, svgContent, forceFit = false) { pane.svgContainer.innerHTML = svgContent; const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement) { const viewBox = svgElement.getAttribute('viewBox'); if (viewBox) { const parts = viewBox.split(' '); pane.originalWidth = parseFloat(parts[2]); pane.originalHeight = parseFloat(parts[3]); } else { pane.originalWidth = parseFloat(svgElement.getAttribute('width')) || svgElement.getBBox().width || 600; pane.originalHeight = parseFloat(svgElement.getAttribute('height')) || svgElement.getBBox().height || 400; } svgElement.setAttribute('width', pane.originalWidth); svgElement.setAttribute('height', pane.originalHeight); try { adjustTextColorsInSvg(svgElement); } catch(e) { console.error("Error adjusting text colors:", e); } fitAndCenterPane(pane, forceFit);  } }
-        function updateModalViewButtons() { modalViewOldButton.classList.toggle('active', !isSplitViewActive && activeSinglePaneType === 'old');  modalViewNewButton.classList.toggle('active', !isSplitViewActive && activeSinglePaneType === 'new');  modalCompareButton.classList.toggle('active', isSplitViewActive); }
-        function switchToSingleView(paneToShowType, clickedByUser = false) { isSplitViewActive = false; activeSinglePaneType = paneToShowType; const paneToDisplay = (paneToShowType === 'old') ? paneOld : paneNew; const paneToHide = (paneToShowType === 'old') ? paneNew : paneOld; paneToDisplay.element.style.display = 'flex'; paneToHide.element.style.display = 'none'; const forceFit = clickedByUser || paneToDisplay.singleViewZoom === undefined; const svgContent = (paneToDisplay === paneOld) ?  document.getElementById('renderedDiagramOldOutput').innerHTML :  document.getElementById('renderedDiagramNewOutput').innerHTML; if (svgContent.includes("<svg")) { loadDiagramIntoPane(paneToDisplay, svgContent, forceFit);  } updateModalViewButtons(); }
+        function fitAndCenterPane(pane, forceRecalculate = false) { const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { return; } const viewModeZoom = isSplitViewActive ? pane.splitViewZoom : pane.singleViewZoom; const viewModeScrollLeft = isSplitViewActive ? pane.splitViewScrollLeft : pane.singleViewScrollLeft; const viewModeScrollTop = isSplitViewActive ? pane.splitViewScrollTop : pane.singleViewScrollTop; let targetZoom = pane.currentZoom; if (forceRecalculate || viewModeZoom === undefined) { if (pane.diagramArea.clientWidth > 0 && pane.diagramArea.clientHeight > 0) { const scaleX = pane.diagramArea.clientWidth / pane.originalWidth; const scaleY = pane.diagramArea.clientHeight / pane.originalHeight; targetZoom = Math.min(scaleX, scaleY) * 0.95; targetZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, targetZoom)); } else { targetZoom = 1.0; } } else { targetZoom = viewModeZoom; } pane.currentZoom = targetZoom; const paneApplyZoom = () => { const svgEl = pane.svgContainer.querySelector('svg'); if (svgEl && pane.originalWidth > 0 && pane.originalHeight > 0) { svgEl.setAttribute('width', pane.originalWidth * pane.currentZoom); svgEl.setAttribute('height', pane.originalHeight * pane.currentZoom); } const paneUpdateDisplay = () => { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; }; paneUpdateDisplay(); }; paneApplyZoom(); setTimeout(() => { if (forceRecalculate || viewModeScrollLeft === undefined || viewModeScrollTop === undefined) { const currentRenderedWidth = pane.originalWidth * pane.currentZoom; const currentRenderedHeight = pane.originalHeight * pane.currentZoom; pane.diagramArea.scrollLeft = Math.max(0, (currentRenderedWidth - pane.diagramArea.clientWidth) / 2); pane.diagramArea.scrollTop = Math.max(0, (currentRenderedHeight - pane.diagramArea.clientHeight) / 2); } else { pane.diagramArea.scrollLeft = viewModeScrollLeft; pane.diagramArea.scrollTop = viewModeScrollTop; } savePaneState(pane); }, 50); }
+        function loadDiagramIntoPane(pane, svgContent, forceFit = false) { pane.svgContainer.innerHTML = svgContent; const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement) { const viewBox = svgElement.getAttribute('viewBox'); if (viewBox) { const parts = viewBox.split(' '); pane.originalWidth = parseFloat(parts[2]); pane.originalHeight = parseFloat(parts[3]); } else { pane.originalWidth = parseFloat(svgElement.getAttribute('width')) || svgElement.getBBox().width || 600; pane.originalHeight = parseFloat(svgElement.getAttribute('height')) || svgElement.getBBox().height || 400; } svgElement.setAttribute('width', pane.originalWidth); svgElement.setAttribute('height', pane.originalHeight); try { adjustTextColorsInSvg(svgElement); } catch (e) { console.error("Error adjusting text colors:", e); } fitAndCenterPane(pane, forceFit); } }
+        function updateModalViewButtons() { modalViewOldButton.classList.toggle('active', !isSplitViewActive && activeSinglePaneType === 'old'); modalViewNewButton.classList.toggle('active', !isSplitViewActive && activeSinglePaneType === 'new'); modalCompareButton.classList.toggle('active', isSplitViewActive); }
+        function switchToSingleView(paneToShowType, clickedByUser = false) { isSplitViewActive = false; activeSinglePaneType = paneToShowType; const paneToDisplay = (paneToShowType === 'old') ? paneOld : paneNew; const paneToHide = (paneToShowType === 'old') ? paneNew : paneOld; paneToDisplay.element.style.display = 'flex'; paneToHide.element.style.display = 'none'; const forceFit = clickedByUser || paneToDisplay.singleViewZoom === undefined; const svgContent = (paneToDisplay === paneOld) ? document.getElementById('renderedDiagramOldOutput').innerHTML : document.getElementById('renderedDiagramNewOutput').innerHTML; if (svgContent.includes("<svg")) { loadDiagramIntoPane(paneToDisplay, svgContent, forceFit); } updateModalViewButtons(); }
         modalViewOldButton.addEventListener('click', () => switchToSingleView('old', true));
         modalViewNewButton.addEventListener('click', () => switchToSingleView('new', true));
-        modalCompareButton.addEventListener('click', () => { const oldSvgContent = document.getElementById('renderedDiagramOldOutput').innerHTML; const newSvgContent = document.getElementById('renderedDiagramNewOutput').innerHTML; if (!oldSvgContent.includes("<svg") || !newSvgContent.includes("<svg")) { alert("Both diagrams must be rendered on the main page to show comparison."); return; } isSplitViewActive = true; updateModalViewButtons();  paneOld.element.style.display = 'flex'; paneNew.element.style.display = 'flex'; loadDiagramIntoPane(paneOld, oldSvgContent, paneOld.splitViewZoom === undefined);  loadDiagramIntoPane(paneNew, newSvgContent, paneNew.splitViewZoom === undefined);  });
-        function openModal(clickedType) {  activeSinglePaneType = clickedType;  switchToSingleView(activeSinglePaneType, true);  diagramModal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
-        modalCloseButton.addEventListener('click', () => { diagramModal.classList.add('hidden'); paneOld.svgContainer.innerHTML = '';  paneNew.svgContainer.innerHTML = '';  document.body.style.overflow = ''; isSplitViewActive = false;  activeSinglePaneType = 'old';  updateModalViewButtons(); });
+        modalCompareButton.addEventListener('click', () => { const oldSvgContent = document.getElementById('renderedDiagramOldOutput').innerHTML; const newSvgContent = document.getElementById('renderedDiagramNewOutput').innerHTML; if (!oldSvgContent.includes("<svg") || !newSvgContent.includes("<svg")) { alert("Both diagrams must be rendered on the main page to show comparison."); return; } isSplitViewActive = true; updateModalViewButtons(); paneOld.element.style.display = 'flex'; paneNew.element.style.display = 'flex'; loadDiagramIntoPane(paneOld, oldSvgContent, paneOld.splitViewZoom === undefined); loadDiagramIntoPane(paneNew, newSvgContent, paneNew.splitViewZoom === undefined); });
+        function openModal(clickedType) { activeSinglePaneType = clickedType; switchToSingleView(activeSinglePaneType, true); diagramModal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        modalCloseButton.addEventListener('click', () => { diagramModal.classList.add('hidden'); paneOld.svgContainer.innerHTML = ''; paneNew.svgContainer.innerHTML = ''; document.body.style.overflow = ''; isSplitViewActive = false; activeSinglePaneType = 'old'; updateModalViewButtons(); });
         window.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !diagramModal.classList.contains('hidden')) { modalCloseButton.click(); } });
         async function renderMermaidDiagram(mermaidCode, outputElementId) { /* ... (unchanged) ... */ }
-        function formatGeminiResponse(apiResponseText) { /* ... (unchanged) ... */ }
-        async function renderAndCompareAll() { /* ... (unchanged) ... */ }
-        async function renderMermaidDiagram(mermaidCode, outputElementId) { const outputElement = document.getElementById(outputElementId); if (!mermaidCode) { outputElement.innerHTML = '<p class="text-red-500 p-2 text-center">No code provided.</p>'; return false;  } try { const uniqueRenderId = outputElementId + '_graph_' + Date.now(); const { svg, bindFunctions } = await mermaid.render(uniqueRenderId, mermaidCode); outputElement.innerHTML = svg;  if (bindFunctions) { bindFunctions(outputElement); } const svgElem = outputElement.querySelector('svg'); if (svgElem) { try { adjustTextColorsInSvg(svgElem); }  catch (e) { console.error("Error adjusting SVG text colors:", e); } } return true;  } catch (error) { console.error(`Mermaid rendering error for ${outputElementId}:`, error); outputElement.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Render Error</strong></p>`; return false;  } }
-        function formatGeminiResponse(apiResponseText) { if (!apiResponseText || typeof apiResponseText !== 'string') { return '<p class="text-gray-400">No comparison data received.</p>'; } let content = apiResponseText.replace(/^Differences:\s*/im, '').trim(); const lines = content.split('\n'); let html = ''; let inList = false; lines.forEach(line => { line = line.trim(); if (line.startsWith('* ') || line.startsWith('- ') || line.startsWith('+ ')) { if (!inList) { html += '<ul>'; inList = true; } let listItem = line.substring(2).trim();  listItem = listItem.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); listItem = listItem.replace(/\*(.*?)\*/g, '<em>$1</em>'); listItem = listItem.replace(/`([^`]+)`/g, '<code>$1</code>'); html += `<li>${listItem}</li>`; } else if (line.length > 0) { if (inList) { html += '</ul>'; inList = false; } let paragraph = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); paragraph = paragraph.replace(/\*(.*?)\*/g, '<em>$1</em>'); paragraph = paragraph.replace(/`([^`]+)`/g, '<code>$1</code>'); html += `<p class="ai-summary-heading">${paragraph}</p>`; } }); if (inList) { html += '</ul>'; } if (html === '<ul></ul>' && content.length > 0 && !content.includes('* ') && !content.includes('- ') && !content.includes('+ ')) { html = content.split('\n').filter(line => line.trim().length > 0) .map(p => { let formattedP = p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); formattedP = formattedP.replace(/\*(.*?)\*/g, '<em>$1</em>'); formattedP = formattedP.replace(/`([^`]+)`/g, '<code>$1</code>'); return `<p class="ai-summary-heading">${formattedP}</p>`; }).join(''); } else if (html === '') { html = '<p class="text-gray-400">No specific differences identified by the AI.</p>'; } return html; }
-        async function renderAndCompareAll() { const mermaidCodeOld = document.getElementById('mermaidInputOld').value.trim(); const mermaidCodeNew = document.getElementById('mermaidInputNew').value.trim(); const aiExplanationOutput = document.getElementById('aiExplanationText'); document.getElementById('comparisonOutputContainer').classList.remove('hidden'); aiExplanationOutput.innerHTML = '';  document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering Old Diagram...</p>'; document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering New Diagram...</p>'; if (!mermaidCodeOld || !mermaidCodeNew) { aiExplanationOutput.innerHTML = '<p class="text-red-500 p-4 text-center">Please provide code for BOTH diagrams.</p>'; if (!mermaidCodeOld) document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-red-500 p-4 text-center">Missing Old Diagram code.</p>'; if (!mermaidCodeNew) document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-red-500 p-4 text-center">Missing New Diagram code.</p>'; return;  } await renderMermaidDiagram(mermaidCodeOld, 'renderedDiagramOldOutput'); await renderMermaidDiagram(mermaidCodeNew, 'renderedDiagramNewOutput'); aiExplanationOutput.innerHTML = '<div class="loader"></div> <p class="text-center text-gray-600">✨ AI is analyzing...</p>'; const prompt = `You are a precise data extraction tool. Your task is to compare two Mermaid syntax diagrams: "Diagram Old" and "Diagram New".\n\nYou MUST output your findings ONLY as a concise bullet-point list.\nEach bullet point should clearly describe a single, significant change related to the diagram's structure or flow.\nFocus on:\n- Added Nodes: (e.g., "* A new node 'F' (View Dashboard) was added.")\n- Removed Nodes: (e.g., "* The node 'OldPaymentGateway' was removed.")\n- Modified Node Labels: (e.g., "* The label for node 'D' changed from 'Login Success' to 'Access Granted!'.")\n- Added Relationships: (e.g., "* A new link was added from 'D (Access Granted!)' to 'F (View Dashboard)'.")\n- Removed Relationships: (e.g., "* The link from 'X' to 'Y' was removed.")\n- Modified Relationship Labels: (e.g., "* The link label between 'C' and 'D' changed from 'Valid' to 'Authenticated'.")\n- Added or Removed Subgraphs.\n\nDe-emphasize or omit purely cosmetic changes (like minor color adjustments of existing elements) unless they are part of a new 'classDef' that implies new functionality or state.\nYou MUST NOT ask any clarifying questions.\nThe entire response must be only the bullet-point list of differences. Use natural, readable sentences for each bullet point.\n\nDiagram Old:\n\`\`\`mermaid\n${mermaidCodeOld}\n\`\`\`\n\nDiagram New:\n\`\`\`mermaid\n${mermaidCodeNew}\n\`\`\`\n\nKey Differences:\n`; let chatHistory = [{ role: "user", parts: [{ text: prompt }] }]; const payload = { contents: chatHistory }; const apiKey = "";  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`; try { const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); if (!response.ok) { const errorData = await response.json(); throw new Error(`API request failed: ${errorData?.error?.message || response.statusText}`); } const result = await response.json(); if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {  const apiResponseText = result.candidates[0].content.parts[0].text; aiExplanationOutput.innerHTML = formatGeminiResponse(apiResponseText); } else { aiExplanationOutput.innerHTML = '<p class="text-red-500 p-4 text-center">Could not retrieve comparison.</p>'; } } catch (error) { console.error("Error calling Gemini API:", error); aiExplanationOutput.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Error:</strong> ${error.message}</p>`; } }
+        // function formatGeminiResponse(apiResponseText) { /* ... (unchanged) ... */ } // Will be updated below
+        async function renderAndCompareAll() { /* ... (unchanged, but uses new prompt) ... */ }
+        async function renderMermaidDiagram(mermaidCode, outputElementId) { const outputElement = document.getElementById(outputElementId); if (!mermaidCode) { outputElement.innerHTML = '<p class="text-red-500 p-2 text-center">No code provided.</p>'; return false; } try { const uniqueRenderId = outputElementId + '_graph_' + Date.now(); const { svg, bindFunctions } = await mermaid.render(uniqueRenderId, mermaidCode); outputElement.innerHTML = svg; if (bindFunctions) { bindFunctions(outputElement); } const svgElem = outputElement.querySelector('svg'); if (svgElem) { try { adjustTextColorsInSvg(svgElem); } catch (e) { console.error("Error adjusting SVG text colors:", e); } } return true; } catch (error) { console.error(`Mermaid rendering error for ${outputElementId}:`, error); outputElement.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Render Error</strong></p>`; return false; } }
+
+        function formatGeminiResponse(apiResponseText) {
+            if (!apiResponseText || typeof apiResponseText !== 'string') {
+                return '<p class="text-gray-400">No comparison data received.</p>';
+            }
+            // Add a header before the AI's content
+            let html = '<h4 class="ai-explanation-header">Key Differences Identified by Gemini:</h4>';
+
+            let content = apiResponseText.replace(/^Differences:\s*/im, '').trim();
+            const lines = content.split('\n');
+            let inList = false;
+
+            lines.forEach(line => {
+                line = line.trim();
+                if (line.startsWith('* ') || line.startsWith('- ') || line.startsWith('+ ')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    let listItem = line.substring(2).trim();
+                    listItem = listItem.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    listItem = listItem.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    listItem = listItem.replace(/`([^`]+)`/g, '<code>$1</code>');
+                    html += `<li>${listItem}</li>`;
+                } else if (line.length > 0) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    let paragraph = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    paragraph = paragraph.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    paragraph = paragraph.replace(/`([^`]+)`/g, '<code>$1</code>');
+                    html += `<p>${paragraph}</p>`; // Use regular <p> for non-list items
+                }
+            });
+
+            if (inList) {
+                html += '</ul>';
+            }
+
+            if (html === '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4><ul></ul>' && content.length > 0 && !content.includes('* ') && !content.includes('- ') && !content.includes('+ ')) {
+                html = '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4>' + content.split('\n').filter(line => line.trim().length > 0)
+                    .map(p => `<p>${p}</p>`).join('');
+            } else if (html === '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4>' || html === '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4><ul></ul>') {
+                html = '<h4 class="ai-explanation-header">Key Differences Identified by AI:</h4><p class="text-gray-400">No specific differences identified by the AI.</p>';
+            }
+            return html;
+        }
+
+        async function renderAndCompareAll() {
+            const mermaidCodeOld = document.getElementById('mermaidInputOld').value.trim();
+            const mermaidCodeNew = document.getElementById('mermaidInputNew').value.trim();
+            const aiExplanationOutput = document.getElementById('aiExplanationText');
+            document.getElementById('comparisonOutputContainer').classList.remove('hidden');
+            aiExplanationOutput.innerHTML = '';
+            document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering Old Diagram...</p>';
+            document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering New Diagram...</p>';
+
+            if (!mermaidCodeOld || !mermaidCodeNew) {
+                aiExplanationOutput.innerHTML = '<p class="text-red-500 p-4 text-center">Please provide code for BOTH diagrams.</p>';
+                if (!mermaidCodeOld) document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-red-500 p-4 text-center">Missing Old Diagram code.</p>';
+                if (!mermaidCodeNew) document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-red-500 p-4 text-center">Missing New Diagram code.</p>';
+                return;
+            }
+            await renderMermaidDiagram(mermaidCodeOld, 'renderedDiagramOldOutput');
+            await renderMermaidDiagram(mermaidCodeNew, 'renderedDiagramNewOutput');
+
+            aiExplanationOutput.innerHTML = '<div class="loader"></div> <p class="text-center text-gray-600">✨ AI is analyzing...</p>';
+
+            const activeApiKey = GEMINI_API_KEY || GEMINI_API_KEY_FALLBACK;
+            if (!activeApiKey) {
+                aiExplanationOutput.innerHTML = `
+                    <div class="api-key-instructions-error p-4 bg-yellow-900 border border-yellow-700 text-yellow-200 rounded-md">
+                        <strong class="font-bold">AI Analysis Disabled: Gemini API Key Missing</strong><br>
+                        <p class="my-2">To enable AI-powered diagram comparison, please expand the "Configure Gemini API Key" section above and follow the instructions to add your key.</p>
+                        <p class="text-xs">The diagram rendering and manual comparison features will still work without an API key.</p>
+                    </div>`;
+                return;
+            }
+
+            const prompt = `You are an expert system analyst. Your task is to compare two Mermaid syntax diagrams: "Diagram Old" and "Diagram New".
+
+Provide a concise summary of the differences as a natural language bullet-point list.
+Order the bullet points by following the general flow of the diagrams (e.g., top-to-bottom, left-to-right, or by logical sequence if apparent).
+Each bullet point should directly describe a single, significant change. Do NOT use bolded prefixes like "ADDED Node:".
+Instead, use natural sentence structures. For example:
+* Node 'F' (View Dashboard) was added to Diagram New.
+* The label for node 'D' changed from "Login Success" in Diagram Old to "Access Granted!" in Diagram New.
+* A new relationship was added from node 'D' to node 'F' in Diagram New.
+
+Focus on:
+- Added or removed nodes, including their labels.
+- Modifications to node labels.
+- Added or removed relationships (links/arrows), specifying source, target, and any label.
+- Modifications to relationship labels.
+- Added or removed subgraphs, noting their titles.
+
+De-emphasize or omit purely cosmetic style changes (like minor color adjustments of existing elements) unless they are part of a new 'classDef' that implies new functionality or state.
+You MUST NOT ask any clarifying questions.
+The entire response must be only the bullet-point list of differences.
+
+Diagram Old:
+\`\`\`mermaid
+${mermaidCodeOld}
+\`\`\`
+
+Diagram New:
+\`\`\`mermaid
+${mermaidCodeNew}
+\`\`\`
+
+Key Differences:
+`;
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeApiKey}`;
+            try {
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMsg = errorData?.error?.message || response.statusText;
+                    if (errorMsg.includes("API key not valid") || errorMsg.includes("unregistered caller") || response.status === 400 || response.status === 403) {
+                        aiExplanationOutput.innerHTML = `
+                            <div class="api-key-instructions-error p-4 bg-red-900 border border-red-700 text-red-200 rounded-md">
+                                <strong class="font-bold">API Key Error:</strong> ${errorMsg}<br>
+                                Please ensure your API key is correctly entered and valid. Expand the "Configure Gemini API Key" section below for help.
+                            </div>`;
+                    } else {
+                        throw new Error(`API request failed: ${errorMsg}`);
+                    }
+                } else {
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
+                        const apiResponseText = result.candidates[0].content.parts[0].text;
+                        aiExplanationOutput.innerHTML = formatGeminiResponse(apiResponseText);
+                    } else {
+                        aiExplanationOutput.innerHTML = '<p class="text-red-500 p-4 text-center">Could not retrieve comparison from AI.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                if (!error.message.includes("API key not valid") && !error.message.includes("unregistered caller")) {
+                    aiExplanationOutput.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Error during AI Analysis:</strong> ${error.message}</p>`;
+                }
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setupPaneInteraction(paneOld); 
-            setupPaneInteraction(paneNew); 
+            loadApiKey();
+            setupPaneInteraction(paneOld);
+            setupPaneInteraction(paneNew);
             document.getElementById('renderedDiagramOldOutput').addEventListener('click', () => { if (document.getElementById('renderedDiagramOldOutput').querySelector('svg')) { openModal('old'); } });
             document.getElementById('renderedDiagramNewOutput').addEventListener('click', () => { if (document.getElementById('renderedDiagramNewOutput').querySelector('svg')) { openModal('new'); } });
-            const initialMermaidCodeOld = `graph TB\n    subgraph "User Authentication"\n        A[User Enters Credentials] --> B{Validate Input}\n        B -- Valid --> C[Check Credentials DB]\n        C -- Match --> D[Login Success]\n        C -- No Match --> E[Login Failed]\n        B -- Invalid --> E\n    end\n    classDef default fill:#2d3748,stroke:#718096,color:#ffffff\n`;
+
+            const initialMermaidCodeOld = `graph TD
+    A[Start] --> B[Process 1]
+    B --> D[End]
+    classDef default fill:#2d3748,stroke:#718096,color:#ffffff
+`;
             document.getElementById('mermaidInputOld').value = initialMermaidCodeOld;
-            const initialMermaidCodeNew = `graph TB\n    subgraph "User Authentication"\n        A[User Enters Credentials] --> B{Validate Input Format}\n        %% Node B Label Modified\n        B -- Valid --> C[Check Credentials DB]\n        C -- Match --> D[Access Granted!]\n        %% Node D Label Modified\n        C -- No Match --> E[Login Failed - Show Error]\n        %% Node E Label Modified\n        B -- Invalid --> E\n        D --> F((Load User Dashboard))\n        %% New Node F & New Relationship\n    end\n\n    classDef default fill:#2d3748,stroke:#718096,color:#ffffff\n    classDef successNode fill:#38a169,color:#ffffff,stroke:#2f855a\n    %% New ClassDef\n    class D successNode\n    %% Class applied to D\n    class F successNode\n    %% Class applied to F\n`; 
+
+            const initialMermaidCodeNew = `graph TB
+    A[Start] --> B[Process 1 Rev.A]
+    B --> C{Decision Point}
+    C -- Yes --> D[End]
+    C -- No --> E[Alternate End]
+    classDef default fill:#2d3748,stroke:#718096,color:#ffffff
+`;
             document.getElementById('mermaidInputNew').value = initialMermaidCodeNew;
         });
     </script>
 </body>
+
 </html>
