@@ -18,7 +18,9 @@
             min-height: 100vh;
             margin: 0;
             background-color: #1a202c;
+            /* Dark gray-blue */
             color: #e2e8f0;
+            /* Light gray */
             padding: 20px;
             box-sizing: border-box;
         }
@@ -26,7 +28,9 @@
         .container {
             width: 100%;
             max-width: 1400px;
+            /* Increased max-width for wider layout */
             background-color: #2d3748;
+            /* Darker slate */
             color: #e2e8f0;
             padding: 20px;
             border-radius: 8px;
@@ -41,8 +45,11 @@
 
         .collapsible-toggle {
             background-color: #1f2937;
+            /* Very dark blue */
             color: #a0aec0;
+            /* Medium gray */
             border: 1px solid #4a5568;
+            /* Slate */
             padding: 10px 15px;
             width: 100%;
             text-align: left;
@@ -57,6 +64,7 @@
 
         .collapsible-toggle:hover {
             background-color: #252f3e;
+            /* Slightly lighter very dark blue */
         }
 
         .collapsible-toggle .arrow {
@@ -91,6 +99,7 @@
             border-radius: 4px;
             margin-right: 10px;
             width: calc(100% - 120px);
+            /* Adjust width based on button */
             margin-bottom: 10px;
         }
 
@@ -98,6 +107,7 @@
             /* Save Key button */
             padding: 8px 15px;
             background-color: #4299e1;
+            /* Blue */
             color: white;
             border: none;
             border-radius: 4px;
@@ -108,6 +118,7 @@
 
         .api-key-content button:hover {
             background-color: #2b6cb0;
+            /* Darker blue */
         }
 
         .api-key-status {
@@ -122,57 +133,116 @@
             margin-top: 10px;
             font-size: 0.9em;
             color: #cbd5e0;
+            /* Lighter gray for readability */
         }
 
         .api-key-instructions-list a {
             color: #63b3ed;
+            /* Light blue for links */
             text-decoration: underline;
         }
 
         .api-key-instructions-list a:hover {
             color: #90cdf4;
+            /* Even lighter blue on hover */
         }
 
 
         .diagram-input-area {
             flex: 1;
+            /* Takes up available space */
             display: flex;
             flex-direction: column;
         }
 
+        .swap-button-container {
+            display: flex;
+            align-items: center;
+            /* Vertically center button */
+            justify-content: center;
+            padding: 0 10px;
+            /* Space around the button */
+        }
+
+        #swapInputsButton {
+            background-color: #4a5568;
+            /* Slate */
+            color: #e2e8f0;
+            border: 1px solid #718096;
+            /* Lighter slate for border */
+            border-radius: 50%;
+            /* Make it circular */
+            width: 44px;
+            /* Fixed size */
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            padding: 0;
+            /* Remove padding if icon is sized correctly */
+        }
+
+        #swapInputsButton:hover {
+            background-color: #718096;
+            /* Lighter slate on hover */
+            transform: scale(1.1);
+        }
+
+        #swapInputsButton svg {
+            width: 24px;
+            /* Size of the SVG icon */
+            height: 24px;
+        }
+
+
         .mermaid {
             width: 100%;
             min-height: 350px;
+            /* Ensure diagrams have enough space */
             border: 1px solid #4a5568;
+            /* Slate border */
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: auto;
+            /* Allow scrolling for large diagrams */
             background-color: #111827;
+            /* Very dark blue, almost black for diagram background */
             cursor: pointer;
+            /* Indicate it's clickable for modal */
         }
 
         .mermaid:hover {
             border-color: #718096;
+            /* Lighter slate border on hover */
         }
 
         textarea {
             width: 100%;
             min-height: 180px;
+            /* Good starting height */
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #4a5568;
+            /* Slate */
             background-color: #1a202c;
+            /* Dark gray-blue */
             color: #e2e8f0;
+            /* Light gray */
             margin-bottom: 10px;
             font-family: monospace;
+            /* Best for code */
             font-size: 13px;
             resize: vertical;
+            /* Allow vertical resize */
         }
 
         textarea::placeholder {
             color: #a0aec0;
+            /* Medium gray for placeholder */
         }
 
         button.primary-action {
@@ -185,10 +255,12 @@
             font-size: 1.1rem;
             transition: background-color 0.3s;
             background-color: #38a169;
+            /* Green */
         }
 
         button.primary-action:hover {
             background-color: #2f855a;
+            /* Darker green */
         }
 
         h1,
@@ -197,18 +269,23 @@
         h4 {
             text-align: center;
             color: #e2e8f0;
+            /* Light gray for headings */
         }
 
         h1 {
             color: #f7fafc;
+            /* Near white for main title */
         }
+
 
         .output-container {
             margin-top: 20px;
             padding: 16px;
             border: 1px solid #4a5568;
+            /* Slate */
             border-radius: 8px;
             background-color: #2d3748;
+            /* Darker slate */
         }
 
         .output-container h3 {
@@ -220,7 +297,9 @@
 
         .loader {
             border: 4px solid #4a5568;
+            /* Slate */
             border-top: 4px solid #63b3ed;
+            /* Light blue spinner */
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -251,7 +330,7 @@
             justify-content: center;
             z-index: 1000;
             padding: 5px;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         .modal-content {
@@ -264,7 +343,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            position: relative;
+            position: relative
         }
 
         .modal-header {
@@ -273,7 +352,7 @@
             align-items: center;
             padding-bottom: 5px;
             margin-bottom: 5px;
-            gap: 10px;
+            gap: 10px
         }
 
         .modal-header-button {
@@ -283,41 +362,41 @@
             border: 1px solid #718096;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.2s, border-color 0.2s;
+            font-size: .9rem;
+            transition: background-color .2s, border-color .2s
         }
 
         .modal-header-button:hover {
             background-color: #6b7280;
-            border-color: #a0aec0;
+            border-color: #a0aec0
         }
 
         .modal-header-button.active {
             background-color: #4299e1;
             border-color: #63b3ed;
-            color: white;
+            color: #fff
         }
 
         .modal-close-button {
-            background: none;
+            background: 0 0;
             border: none;
             font-size: 1.8rem;
             line-height: 1;
             cursor: pointer;
             color: #a0aec0;
             padding: 0 5px;
-            margin-left: auto;
+            margin-left: auto
         }
 
         .modal-close-button:hover {
-            color: #e2e8f0;
+            color: #e2e8f0
         }
 
         .modal-main-area {
             flex-grow: 1;
             display: flex;
             gap: 10px;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .diagram-pane {
@@ -327,7 +406,7 @@
             border: 1px solid #4a5568;
             border-radius: 3px;
             background-color: #2d3748;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .modal-diagram-area {
@@ -336,21 +415,21 @@
             display: grid;
             place-items: center;
             background-color: #111827;
-            cursor: grab;
+            cursor: grab
         }
 
         .modal-diagram-area.grabbing {
-            cursor: grabbing;
+            cursor: grabbing
         }
 
         .modal-svg-container {
-            display: inline-block;
+            display: inline-block
         }
 
         .modal-svg-container svg {
             display: block;
             max-width: none !important;
-            max-height: none !important;
+            max-height: none !important
         }
 
         .pane-controls {
@@ -359,7 +438,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 5px
         }
 
         .pane-controls button {
@@ -370,30 +449,32 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: .85rem
         }
 
         .pane-controls button:hover {
-            background-color: #a0aec0;
+            background-color: #a0aec0
         }
 
         .pane-controls button:disabled {
             background-color: #4a5568;
             color: #718096;
-            cursor: not-allowed;
+            cursor: not-allowed
         }
 
         .zoom-display {
             font-weight: 500;
             color: #e2e8f0;
-            font-size: 0.85rem;
-            margin-left: 8px;
+            font-size: .85rem;
+            margin-left: 8px
         }
 
         .mermaid p {
             color: #a0aec0;
+            /* Placeholder text in Mermaid divs */
         }
 
+        /* AI Explanation Text Styling */
         #aiExplanationText .ai-explanation-title {
             font-size: 1.15rem;
             font-weight: bold;
@@ -467,12 +548,15 @@
         #aiExplanationText .api-key-instructions-error {
             padding: 10px;
             background-color: #4a2424;
+            /* Dark red */
             border-radius: 4px;
             border: 1px solid #7f1d1d;
+            /* Darker red border */
         }
 
         #aiExplanationText .api-key-instructions-error strong {
             color: #f87171;
+            /* Lighter red for emphasis */
         }
     </style>
 </head>
@@ -507,18 +591,29 @@
             </div>
         </div>
 
-        <div class="flex flex-row justify-between gap-[20px] mb-[20px]">
+        <div class="flex flex-row justify-between items-start gap-[10px] mb-[20px]">
             <div class="diagram-input-area">
                 <h2 class="text-xl font-semibold mb-2">Diagram Old</h2>
                 <textarea id="mermaidInputOld" placeholder="Paste Mermaid code for the OLD diagram..."></textarea>
             </div>
+
+            <div class="swap-button-container self-center pt-8"> <button id="swapInputsButton"
+                    title="Swap diagram inputs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M15.97 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H5.25a.75.75 0 0 1 0-1.5h13.94l-3.22-3.22a.75.75 0 0 1 0-1.06Zm-7.94 9a.75.75 0 0 1 0 1.06L4.81 15.75H18.75a.75.75 0 0 1 0 1.5H4.81l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 0Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+
             <div class="diagram-input-area">
                 <h2 class="text-xl font-semibold mb-2">Diagram New</h2>
                 <textarea id="mermaidInputNew" placeholder="Paste Mermaid code for the NEW diagram..."></textarea>
             </div>
         </div>
-        <div class="flex justify-center my-8">
-            <button onclick="renderAndCompareAll()" class="primary-action">🔬 Render & Compare Diagrams</button>
+        <div class="flex justify-center my-8"> <button onclick="renderAndCompareAll()" class="primary-action">🔬 Render
+                & Compare Diagrams</button>
         </div>
         <div id="comparisonOutputContainer" class="output-container hidden">
             <h3 class="text-xl font-semibold mb-4 text-center">Analysis & Comparison</h3>
@@ -577,43 +672,95 @@
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
+        // Initialize Mermaid
         mermaid.initialize({
-                startOnLoad: false,
-                theme: 'dark',
-                securityLevel: 'loose',
-                themeVariables: {
-                    background: '#111827',
-                    mainBkg: '#111827',
-                    clusterBkg: '#1f2937',
-                    primaryColor: '#2d3748',
-                    primaryTextColor: '#ffffff',
-                    primaryBorderColor: '#4a5568',
-                    lineColor: '#a0aec0',       // Corrected subtle arrow color
-                    secondaryColor: '#4a5568',
-                    secondaryTextColor: '#ffffff',
-                    tertiaryColor: '#1f2937',
-                    noteBkgColor: '#1f2937',
-                    noteTextColor: '#e2e8f0',
-                    textColor: '#ffffff',
-                    arrowheadColor: '#a0aec0', // Corrected subtle arrowhead color
-                }
-            });
-        function adjustTextColorsInSvg(svgElement) { /* ... (unchanged) ... */ }
+            startOnLoad: false,
+            theme: 'dark', // Using a dark theme compatible with the page
+            securityLevel: 'loose', // Or 'strict' or 'antiscript' based on your needs
+            themeVariables: { // Custom theme variables for better dark mode integration
+                background: '#111827', // Very dark blue, almost black
+                mainBkg: '#111827', // Main background for diagrams
+                clusterBkg: '#1f2937', // Background for clusters/subgraphs
+                primaryColor: '#2d3748', // Darker slate (used for some elements)
+                primaryTextColor: '#ffffff', // White text
+                primaryBorderColor: '#4a5568', // Slate border
+                lineColor: '#a0aec0',       // Corrected subtle arrow color for better visibility
+                secondaryColor: '#4a5568', // Slate (used for other elements)
+                secondaryTextColor: '#ffffff', // White text
+                tertiaryColor: '#1f2937', // Very dark blue (for other elements)
+                noteBkgColor: '#1f2937', // Background for notes
+                noteTextColor: '#e2e8f0', // Light gray text for notes
+                textColor: '#ffffff', // Default text color
+                arrowheadColor: '#a0aec0', // Corrected subtle arrowhead color
+                // Add more variables as needed from Mermaid documentation
+            }
+        });
+        // --- Text Color Adjustment for SVG ---
+        // Helper function to convert color string to RGB object
         function colorToRGB(colorStr) { if (!colorStr) { return null; } const lowerColorStr = colorStr.toLowerCase(); if (lowerColorStr === 'transparent' || lowerColorStr === 'none') { return null; } const ctx = document.createElement('canvas').getContext('2d'); if (!ctx) { return null; } ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.fillStyle = colorStr; const computedColor = ctx.fillStyle; let match = computedColor.match(/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/); if (match) return { r: parseInt(match[1], 16), g: parseInt(match[2], 16), b: parseInt(match[3], 16) }; match = computedColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/); if (match) return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; match = computedColor.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/); if (match) { const alpha = parseFloat(match[4]); if (alpha < 0.1) { return null; } return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }; } return null; }
+        // Helper function to calculate luminance
         function getLuminance(r, g, b) { const RsRGB = r / 255; const GsRGB = g / 255; const BsRGB = b / 255; const R = (RsRGB <= 0.03928) ? RsRGB / 12.92 : Math.pow((RsRGB + 0.055) / 1.055, 2.4); const G = (GsRGB <= 0.03928) ? GsRGB / 12.92 : Math.pow((GsRGB + 0.055) / 1.055, 2.4); const B = (BsRGB <= 0.03928) ? BsRGB / 12.92 : Math.pow((BsRGB + 0.055) / 1.055, 2.4); return 0.2126 * R + 0.7152 * G + 0.0722 * B; }
+        // Main function to adjust text colors in SVG
         function adjustTextColorsInSvg(svgElement) { if (!svgElement) { return; } const THE_DARK_TEXT_COLOR = '#111827'; const THE_LIGHT_TEXT_COLOR = '#ffffff'; const LUMINANCE_THRESHOLD = 0.4; const nodes = svgElement.querySelectorAll('g.node, g.cluster'); nodes.forEach((nodeGroup) => { const shape = nodeGroup.querySelector(':scope > rect, :scope > circle, :scope > ellipse, :scope > polygon, :scope > path'); if (shape) { const computedStyle = window.getComputedStyle(shape); const fillColorStr = computedStyle.fill; const fillAttr = shape.getAttribute('fill'); const styleAttrFill = shape.style.fill; const fillOpacity = parseFloat(computedStyle.fillOpacity !== undefined ? computedStyle.fillOpacity : computedStyle.opacity) || 1.0; const effectiveFillStr = fillAttr || styleAttrFill || fillColorStr; if (!effectiveFillStr || effectiveFillStr.toLowerCase() === 'none' || effectiveFillStr.toLowerCase() === 'transparent' || fillOpacity < 0.5) { return; } const rgb = colorToRGB(effectiveFillStr); if (rgb) { const luminance = getLuminance(rgb.r, rgb.g, rgb.b); let targetTextColor = (luminance > LUMINANCE_THRESHOLD) ? THE_DARK_TEXT_COLOR : THE_LIGHT_TEXT_COLOR; const textElements = nodeGroup.querySelectorAll(':scope text, :scope text > tspan'); if (textElements.length > 0) { textElements.forEach(textEl => { textEl.style.fill = targetTextColor; textEl.setAttribute('fill', targetTextColor); }); } const foreignObjects = nodeGroup.querySelectorAll(':scope foreignObject'); if (foreignObjects.length > 0) { foreignObjects.forEach(foEl => { const innerTextContainers = foEl.querySelectorAll('div, span, p'); if (innerTextContainers.length > 0) { innerTextContainers.forEach(innerEl => { innerEl.style.setProperty('color', targetTextColor, 'important'); }); } else { foEl.style.setProperty('color', targetTextColor, 'important'); } }); } } } }); }
 
-        // --- API Key Management (unchanged) ---
+        // --- API Key Management ---
         const apiKeyInputEl = document.getElementById('apiKeyInputEl');
         const saveApiKeyButton = document.getElementById('saveApiKeyButton');
         const apiKeyStatus = document.getElementById('apiKeyStatus');
         const apiKeyToggle = document.getElementById('apiKeyToggle');
         const apiKeyContent = document.getElementById('apiKeyContent');
-        let GEMINI_API_KEY_FALLBACK = '';
-        let GEMINI_API_KEY = '';
-        apiKeyToggle.addEventListener('click', () => { const isHidden = apiKeyContent.style.display === 'none'; apiKeyContent.style.display = isHidden ? 'block' : 'none'; apiKeyToggle.querySelector('.arrow').textContent = isHidden ? '▲' : '▼'; apiKeyToggle.classList.toggle('open', isHidden); });
-        function loadApiKey() { const storedKey = localStorage.getItem('geminiApiKey'); if (storedKey) { GEMINI_API_KEY = storedKey; apiKeyInputEl.value = storedKey; apiKeyStatus.textContent = 'API Key loaded from local storage.'; apiKeyStatus.style.color = '#68d391'; } else { GEMINI_API_KEY = GEMINI_API_KEY_FALLBACK; apiKeyStatus.textContent = 'API Key not set. AI features require a key.'; apiKeyStatus.style.color = '#fc8181'; } }
-        saveApiKeyButton.addEventListener('click', () => { const key = apiKeyInputEl.value.trim(); if (key) { localStorage.setItem('geminiApiKey', key); GEMINI_API_KEY = key; apiKeyStatus.textContent = 'API Key saved locally!'; apiKeyStatus.style.color = '#68d391'; } else { alert('Please enter an API key.'); } });
+        let GEMINI_API_KEY_FALLBACK = ''; // Provide a fallback or leave empty
+        let GEMINI_API_KEY = ''; // Will be loaded from localStorage or fallback
+
+        apiKeyToggle.addEventListener('click', () => {
+            const isHidden = apiKeyContent.style.display === 'none';
+            apiKeyContent.style.display = isHidden ? 'block' : 'none';
+            apiKeyToggle.querySelector('.arrow').textContent = isHidden ? '▲' : '▼';
+            apiKeyToggle.classList.toggle('open', isHidden);
+        });
+
+        function loadApiKey() {
+            const storedKey = localStorage.getItem('geminiApiKey');
+            if (storedKey) {
+                GEMINI_API_KEY = storedKey;
+                apiKeyInputEl.value = storedKey; // Pre-fill if found
+                apiKeyStatus.textContent = 'API Key loaded from local storage.';
+                apiKeyStatus.style.color = '#68d391'; // Green for success
+            } else {
+                GEMINI_API_KEY = GEMINI_API_KEY_FALLBACK;
+                apiKeyStatus.textContent = 'API Key not set. AI features require a key.';
+                apiKeyStatus.style.color = '#fc8181'; // Red for warning
+            }
+        }
+
+        saveApiKeyButton.addEventListener('click', () => {
+            const key = apiKeyInputEl.value.trim();
+            if (key) {
+                localStorage.setItem('geminiApiKey', key);
+                GEMINI_API_KEY = key;
+                apiKeyStatus.textContent = 'API Key saved locally!';
+                apiKeyStatus.style.color = '#68d391';
+            } else {
+                // Using a custom modal or inline message instead of alert()
+                apiKeyStatus.textContent = 'Please enter an API key.';
+                apiKeyStatus.style.color = '#fc8181';
+                // Consider a more prominent error display if needed
+            }
+        });
+
+        // --- Swap Inputs Functionality ---
+        const swapInputsButton = document.getElementById('swapInputsButton');
+        const mermaidInputOldEl = document.getElementById('mermaidInputOld');
+        const mermaidInputNewEl = document.getElementById('mermaidInputNew');
+
+        function swapDiagramInputs() {
+            const oldVal = mermaidInputOldEl.value;
+            const newVal = mermaidInputNewEl.value;
+            mermaidInputOldEl.value = newVal;
+            mermaidInputNewEl.value = oldVal;
+        }
+        swapInputsButton.addEventListener('click', swapDiagramInputs);
+
 
         // --- Modal JS (unchanged from previous working version with state saving) ---
         const diagramModal = document.getElementById('diagramModal');
@@ -623,28 +770,63 @@
         const modalViewNewButton = document.getElementById('modalViewNewButton');
         const ZOOM_STEP = 0.2; const MAX_ZOOM = 5.0; const MIN_ZOOM = 0.1;
         let isSplitViewActive = false;
-        let activeSinglePaneType = 'old';
+        let activeSinglePaneType = 'old'; // 'old' or 'new'
+        // Pane objects to store state for each diagram view in the modal
         const paneOld = { element: document.getElementById('paneOldDiagram'), diagramArea: document.getElementById('modalDiagramAreaOld'), svgContainer: document.getElementById('modalSvgContainerOld'), zoomLevelDisplay: document.getElementById('zoomLevelDisplayOld'), zoomInButton: document.getElementById('zoomInButtonOld'), zoomOutButton: document.getElementById('zoomOutButtonOld'), resetButton: document.getElementById('resetZoomButtonOld'), currentZoom: 1.0, originalWidth: 0, originalHeight: 0, isPanning: false, panStartX: 0, panStartY: 0, scrollLeftStart: 0, scrollTopStart: 0, singleViewZoom: undefined, singleViewScrollLeft: undefined, singleViewScrollTop: undefined, splitViewZoom: undefined, splitViewScrollLeft: undefined, splitViewScrollTop: undefined };
         const paneNew = { element: document.getElementById('paneNewDiagram'), diagramArea: document.getElementById('modalDiagramAreaNew'), svgContainer: document.getElementById('modalSvgContainerNew'), zoomLevelDisplay: document.getElementById('zoomLevelDisplayNew'), zoomInButton: document.getElementById('zoomInButtonNew'), zoomOutButton: document.getElementById('zoomOutButtonNew'), resetButton: document.getElementById('resetZoomButtonNew'), currentZoom: 1.0, originalWidth: 0, originalHeight: 0, isPanning: false, panStartX: 0, panStartY: 0, scrollLeftStart: 0, scrollTopStart: 0, singleViewZoom: undefined, singleViewScrollLeft: undefined, singleViewScrollTop: undefined, splitViewZoom: undefined, splitViewScrollLeft: undefined, splitViewScrollTop: undefined };
+        // Function to set up interactions (zoom, pan) for a given pane
         function setupPaneInteraction(pane) { function updateDisplay() { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; } function applyZoom() { const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement && pane.originalWidth > 0 && pane.originalHeight > 0) { svgElement.setAttribute('width', pane.originalWidth * pane.currentZoom); svgElement.setAttribute('height', pane.originalHeight * pane.currentZoom); } updateDisplay(); } function zoomAndRecenter(newZoom, mouseX, mouseY) { const oldZoom = pane.currentZoom; pane.currentZoom = newZoom; const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { applyZoom(); return; } const vpCenterX = pane.diagramArea.clientWidth / 2; const vpCenterY = pane.diagramArea.clientHeight / 2; const svgPtX = (pane.diagramArea.scrollLeft + mouseX) / oldZoom; const svgPtY = (pane.diagramArea.scrollTop + mouseY) / oldZoom; applyZoom(); pane.diagramArea.scrollLeft = (svgPtX * pane.currentZoom) - mouseX; pane.diagramArea.scrollTop = (svgPtY * pane.currentZoom) - mouseY; savePaneState(pane); } pane.zoomInButton.addEventListener('click', () => { if (pane.currentZoom < MAX_ZOOM) zoomAndRecenter(Math.min(pane.currentZoom + ZOOM_STEP, MAX_ZOOM), pane.diagramArea.clientWidth / 2, pane.diagramArea.clientHeight / 2); }); pane.zoomOutButton.addEventListener('click', () => { if (pane.currentZoom > MIN_ZOOM) zoomAndRecenter(Math.max(pane.currentZoom - ZOOM_STEP, MIN_ZOOM), pane.diagramArea.clientWidth / 2, pane.diagramArea.clientHeight / 2); }); pane.resetButton.addEventListener('click', () => { fitAndCenterPane(pane, true); }); pane.diagramArea.addEventListener('wheel', (event) => { event.preventDefault(); const rect = pane.diagramArea.getBoundingClientRect(); const mouseX = event.clientX - rect.left; const mouseY = event.clientY - rect.top; if (event.deltaY < 0) { if (pane.currentZoom < MAX_ZOOM) zoomAndRecenter(Math.min(pane.currentZoom + ZOOM_STEP, MAX_ZOOM), mouseX, mouseY); } else { if (pane.currentZoom > MIN_ZOOM) zoomAndRecenter(Math.max(pane.currentZoom - ZOOM_STEP, MIN_ZOOM), mouseX, mouseY); } }); pane.diagramArea.addEventListener('mousedown', (e) => { if (e.target.closest('button')) return; pane.isPanning = true; activePanningPane = pane; pane.panStartX = e.pageX; pane.panStartY = e.pageY; pane.scrollLeftStart = pane.diagramArea.scrollLeft; pane.scrollTopStart = pane.diagramArea.scrollTop; pane.diagramArea.classList.add('grabbing'); pane.diagramArea.style.userSelect = 'none'; }); }
-        let activePanningPane = null;
+        let activePanningPane = null; // Track which pane is currently being panned
+        // Global mouse move and mouse up listeners for panning
         window.addEventListener('mousemove', (e) => { const currentPane = activePanningPane; if (!currentPane || !currentPane.isPanning) return; const x = e.pageX; const y = e.pageY; const walkX = x - currentPane.panStartX; const walkY = y - currentPane.panStartY; currentPane.diagramArea.scrollLeft = currentPane.scrollLeftStart - walkX; currentPane.diagramArea.scrollTop = currentPane.scrollTopStart - walkY; });
         window.addEventListener('mouseup', (e) => { if (activePanningPane && activePanningPane.isPanning) { savePaneState(activePanningPane); activePanningPane.isPanning = false; activePanningPane.diagramArea.classList.remove('grabbing'); activePanningPane.diagramArea.style.userSelect = ''; } activePanningPane = null; });
+        // Save the current zoom and scroll state of a pane
         function savePaneState(pane) { if (isSplitViewActive) { pane.splitViewZoom = pane.currentZoom; pane.splitViewScrollLeft = pane.diagramArea.scrollLeft; pane.splitViewScrollTop = pane.diagramArea.scrollTop; } else { pane.singleViewZoom = pane.currentZoom; pane.singleViewScrollLeft = pane.diagramArea.scrollLeft; pane.singleViewScrollTop = pane.diagramArea.scrollTop; } }
+        // Fit and center the diagram within a pane, restoring previous state if available
         function fitAndCenterPane(pane, forceRecalculate = false) { const svgElement = pane.svgContainer.querySelector('svg'); if (!svgElement || pane.originalWidth === 0 || pane.originalHeight === 0) { return; } const viewModeZoom = isSplitViewActive ? pane.splitViewZoom : pane.singleViewZoom; const viewModeScrollLeft = isSplitViewActive ? pane.splitViewScrollLeft : pane.singleViewScrollLeft; const viewModeScrollTop = isSplitViewActive ? pane.splitViewScrollTop : pane.singleViewScrollTop; let targetZoom = pane.currentZoom; if (forceRecalculate || viewModeZoom === undefined) { if (pane.diagramArea.clientWidth > 0 && pane.diagramArea.clientHeight > 0) { const scaleX = pane.diagramArea.clientWidth / pane.originalWidth; const scaleY = pane.diagramArea.clientHeight / pane.originalHeight; targetZoom = Math.min(scaleX, scaleY) * 0.95; targetZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, targetZoom)); } else { targetZoom = 1.0; } } else { targetZoom = viewModeZoom; } pane.currentZoom = targetZoom; const paneApplyZoom = () => { const svgEl = pane.svgContainer.querySelector('svg'); if (svgEl && pane.originalWidth > 0 && pane.originalHeight > 0) { svgEl.setAttribute('width', pane.originalWidth * pane.currentZoom); svgEl.setAttribute('height', pane.originalHeight * pane.currentZoom); } const paneUpdateDisplay = () => { pane.zoomLevelDisplay.textContent = Math.round(pane.currentZoom * 100); pane.zoomInButton.disabled = pane.currentZoom >= MAX_ZOOM; pane.zoomOutButton.disabled = pane.currentZoom <= MIN_ZOOM; }; paneUpdateDisplay(); }; paneApplyZoom(); setTimeout(() => { if (forceRecalculate || viewModeScrollLeft === undefined || viewModeScrollTop === undefined) { const currentRenderedWidth = pane.originalWidth * pane.currentZoom; const currentRenderedHeight = pane.originalHeight * pane.currentZoom; pane.diagramArea.scrollLeft = Math.max(0, (currentRenderedWidth - pane.diagramArea.clientWidth) / 2); pane.diagramArea.scrollTop = Math.max(0, (currentRenderedHeight - pane.diagramArea.clientHeight) / 2); } else { pane.diagramArea.scrollLeft = viewModeScrollLeft; pane.diagramArea.scrollTop = viewModeScrollTop; } savePaneState(pane); }, 50); }
+        // Load SVG content into a pane and adjust its view
         function loadDiagramIntoPane(pane, svgContent, forceFit = false) { pane.svgContainer.innerHTML = svgContent; const svgElement = pane.svgContainer.querySelector('svg'); if (svgElement) { const viewBox = svgElement.getAttribute('viewBox'); if (viewBox) { const parts = viewBox.split(' '); pane.originalWidth = parseFloat(parts[2]); pane.originalHeight = parseFloat(parts[3]); } else { pane.originalWidth = parseFloat(svgElement.getAttribute('width')) || svgElement.getBBox().width || 600; pane.originalHeight = parseFloat(svgElement.getAttribute('height')) || svgElement.getBBox().height || 400; } svgElement.setAttribute('width', pane.originalWidth); svgElement.setAttribute('height', pane.originalHeight); try { adjustTextColorsInSvg(svgElement); } catch (e) { console.error("Error adjusting text colors:", e); } fitAndCenterPane(pane, forceFit); } }
+        // Update the active state of modal view buttons
         function updateModalViewButtons() { modalViewOldButton.classList.toggle('active', !isSplitViewActive && activeSinglePaneType === 'old'); modalViewNewButton.classList.toggle('active', !isSplitViewActive && activeSinglePaneType === 'new'); modalCompareButton.classList.toggle('active', isSplitViewActive); }
+        // Switch modal to single view mode (either old or new diagram)
         function switchToSingleView(paneToShowType, clickedByUser = false) { isSplitViewActive = false; activeSinglePaneType = paneToShowType; const paneToDisplay = (paneToShowType === 'old') ? paneOld : paneNew; const paneToHide = (paneToShowType === 'old') ? paneNew : paneOld; paneToDisplay.element.style.display = 'flex'; paneToHide.element.style.display = 'none'; const forceFit = clickedByUser || paneToDisplay.singleViewZoom === undefined; const svgContent = (paneToDisplay === paneOld) ? document.getElementById('renderedDiagramOldOutput').innerHTML : document.getElementById('renderedDiagramNewOutput').innerHTML; if (svgContent.includes("<svg")) { loadDiagramIntoPane(paneToDisplay, svgContent, forceFit); } updateModalViewButtons(); }
+        // Event listeners for modal view buttons
         modalViewOldButton.addEventListener('click', () => switchToSingleView('old', true));
         modalViewNewButton.addEventListener('click', () => switchToSingleView('new', true));
-        modalCompareButton.addEventListener('click', () => { const oldSvgContent = document.getElementById('renderedDiagramOldOutput').innerHTML; const newSvgContent = document.getElementById('renderedDiagramNewOutput').innerHTML; if (!oldSvgContent.includes("<svg") || !newSvgContent.includes("<svg")) { alert("Both diagrams must be rendered on the main page to show comparison."); return; } isSplitViewActive = true; updateModalViewButtons(); paneOld.element.style.display = 'flex'; paneNew.element.style.display = 'flex'; loadDiagramIntoPane(paneOld, oldSvgContent, paneOld.splitViewZoom === undefined); loadDiagramIntoPane(paneNew, newSvgContent, paneNew.splitViewZoom === undefined); });
+        modalCompareButton.addEventListener('click', () => { const oldSvgContent = document.getElementById('renderedDiagramOldOutput').innerHTML; const newSvgContent = document.getElementById('renderedDiagramNewOutput').innerHTML; if (!oldSvgContent.includes("<svg") || !newSvgContent.includes("<svg")) { /* Consider a custom message instead of alert */ console.warn("Both diagrams must be rendered on the main page to show comparison."); return; } isSplitViewActive = true; updateModalViewButtons(); paneOld.element.style.display = 'flex'; paneNew.element.style.display = 'flex'; loadDiagramIntoPane(paneOld, oldSvgContent, paneOld.splitViewZoom === undefined); loadDiagramIntoPane(paneNew, newSvgContent, paneNew.splitViewZoom === undefined); });
+        // Open the modal and set its initial view
         function openModal(clickedType) { activeSinglePaneType = clickedType; switchToSingleView(activeSinglePaneType, true); diagramModal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        // Close the modal and reset its state
         modalCloseButton.addEventListener('click', () => { diagramModal.classList.add('hidden'); paneOld.svgContainer.innerHTML = ''; paneNew.svgContainer.innerHTML = ''; document.body.style.overflow = ''; isSplitViewActive = false; activeSinglePaneType = 'old'; updateModalViewButtons(); });
+        // Global keydown listener for Esc to close modal
         window.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !diagramModal.classList.contains('hidden')) { modalCloseButton.click(); } });
-        async function renderMermaidDiagram(mermaidCode, outputElementId) { /* ... (unchanged) ... */ }
-        // function formatGeminiResponse(apiResponseText) { /* ... (unchanged) ... */ } // Will be updated below
-        async function renderAndCompareAll() { /* ... (unchanged, but uses new prompt) ... */ }
-        async function renderMermaidDiagram(mermaidCode, outputElementId) { const outputElement = document.getElementById(outputElementId); if (!mermaidCode) { outputElement.innerHTML = '<p class="text-red-500 p-2 text-center">No code provided.</p>'; return false; } try { const uniqueRenderId = outputElementId + '_graph_' + Date.now(); const { svg, bindFunctions } = await mermaid.render(uniqueRenderId, mermaidCode); outputElement.innerHTML = svg; if (bindFunctions) { bindFunctions(outputElement); } const svgElem = outputElement.querySelector('svg'); if (svgElem) { try { adjustTextColorsInSvg(svgElem); } catch (e) { console.error("Error adjusting SVG text colors:", e); } } return true; } catch (error) { console.error(`Mermaid rendering error for ${outputElementId}:`, error); outputElement.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Render Error</strong></p>`; return false; } }
+
+        // --- Mermaid Rendering and AI Comparison ---
+        async function renderMermaidDiagram(mermaidCode, outputElementId) {
+            const outputElement = document.getElementById(outputElementId);
+            if (!mermaidCode) {
+                outputElement.innerHTML = '<p class="text-red-500 p-2 text-center">No code provided.</p>';
+                return false; // Indicate failure
+            }
+            try {
+                const uniqueRenderId = outputElementId + '_graph_' + Date.now(); // Unique ID for each render
+                const { svg, bindFunctions } = await mermaid.render(uniqueRenderId, mermaidCode);
+                outputElement.innerHTML = svg;
+                if (bindFunctions) {
+                    bindFunctions(outputElement); // Attach event listeners if any
+                }
+                const svgElem = outputElement.querySelector('svg');
+                if (svgElem) {
+                    try { adjustTextColorsInSvg(svgElem); } catch (e) { console.error("Error adjusting SVG text colors:", e); }
+                }
+                return true; // Indicate success
+            } catch (error) {
+                console.error(`Mermaid rendering error for ${outputElementId}:`, error);
+                // Display a more user-friendly error message
+                outputElement.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Render Error</strong></p>`;
+                return false; // Indicate failure
+            }
+        }
 
         function formatGeminiResponse(apiResponseText) {
             if (!apiResponseText || typeof apiResponseText !== 'string') {
@@ -653,27 +835,30 @@
             // Add a header before the AI's content
             let html = '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4>';
 
+            // Remove "Differences:" prefix if present (case-insensitive) and trim whitespace
             let content = apiResponseText.replace(/^Differences:\s*/im, '').trim();
             const lines = content.split('\n');
             let inList = false;
 
             lines.forEach(line => {
-                line = line.trim();
-                if (line.startsWith('* ') || line.startsWith('- ') || line.startsWith('+ ')) {
+                line = line.trim(); // Trim each line
+                if (line.startsWith('* ') || line.startsWith('- ') || line.startsWith('+ ')) { // Common markdown list item markers
                     if (!inList) {
                         html += '<ul>';
                         inList = true;
                     }
+                    // Remove marker and trim, then apply formatting
                     let listItem = line.substring(2).trim();
-                    listItem = listItem.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    listItem = listItem.replace(/\*(.*?)\*/g, '<em>$1</em>');
-                    listItem = listItem.replace(/`([^`]+)`/g, '<code>$1</code>');
+                    listItem = listItem.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+                    listItem = listItem.replace(/\*(.*?)\*/g, '<em>$1</em>');       // Italics
+                    listItem = listItem.replace(/`([^`]+)`/g, '<code>$1</code>');     // Inline code
                     html += `<li>${listItem}</li>`;
-                } else if (line.length > 0) {
+                } else if (line.length > 0) { // If it's a non-empty line and not a list item
                     if (inList) {
-                        html += '</ul>';
+                        html += '</ul>'; // Close list if previous line was a list item
                         inList = false;
                     }
+                    // Apply formatting to paragraph
                     let paragraph = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                     paragraph = paragraph.replace(/\*(.*?)\*/g, '<em>$1</em>');
                     paragraph = paragraph.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -681,29 +866,33 @@
                 }
             });
 
-            if (inList) {
+            if (inList) { // Ensure list is closed if it was the last element
                 html += '</ul>';
             }
 
+            // Fallback for content that doesn't use list markers but is not empty
             if (html === '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4><ul></ul>' && content.length > 0 && !content.includes('* ') && !content.includes('- ') && !content.includes('+ ')) {
                 html = '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4>' + content.split('\n').filter(line => line.trim().length > 0)
-                    .map(p => `<p>${p}</p>`).join('');
+                    .map(p => `<p>${p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>')}</p>`).join('');
             } else if (html === '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4>' || html === '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4><ul></ul>') {
+                // If still effectively empty after processing, show a "no differences" message
                 html = '<h4 class="ai-explanation-title">Key Differences Identified by Gemini:</h4><p class="text-gray-400">No specific differences identified by the AI.</p>';
             }
             return html;
         }
+
 
         async function renderAndCompareAll() {
             const mermaidCodeOld = document.getElementById('mermaidInputOld').value.trim();
             const mermaidCodeNew = document.getElementById('mermaidInputNew').value.trim();
             const aiExplanationOutput = document.getElementById('aiExplanationText');
             document.getElementById('comparisonOutputContainer').classList.remove('hidden');
-            aiExplanationOutput.innerHTML = '';
+            aiExplanationOutput.innerHTML = ''; // Clear previous results
 
             let oldRenderSuccess = false;
             let newRenderSuccess = false;
 
+            // Render Old Diagram
             if (mermaidCodeOld) {
                 document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering Old Diagram...</p>';
                 oldRenderSuccess = await renderMermaidDiagram(mermaidCodeOld, 'renderedDiagramOldOutput');
@@ -711,6 +900,7 @@
                 document.getElementById('renderedDiagramOldOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">No code for Old Diagram.</p>';
             }
 
+            // Render New Diagram
             if (mermaidCodeNew) {
                 document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">Rendering New Diagram...</p>';
                 newRenderSuccess = await renderMermaidDiagram(mermaidCodeNew, 'renderedDiagramNewOutput');
@@ -718,11 +908,13 @@
                 document.getElementById('renderedDiagramNewOutput').innerHTML = '<p class="text-gray-400 p-4 text-center">No code for New Diagram.</p>';
             }
 
+            // If either diagram code is missing, don't call AI
             if (!mermaidCodeOld || !mermaidCodeNew) {
                 aiExplanationOutput.innerHTML = '<p class="text-yellow-400 p-4 text-center">Please provide code for BOTH diagrams to perform an analysis by Gemini.</p>';
                 return;
             }
 
+            // Show loader for AI analysis
             aiExplanationOutput.innerHTML = '<div class="loader"></div> <p class="text-center text-gray-600">✨ AI is analyzing...</p>';
 
             const activeApiKey = GEMINI_API_KEY || GEMINI_API_KEY_FALLBACK;
@@ -736,24 +928,34 @@
                 return;
             }
 
+            // --- UPDATED PROMPT ---
             const prompt = `You are an expert system analyst. Your task is to compare two Mermaid syntax diagrams: "Diagram Old" and "Diagram New".
+Your goal is to provide a high-level, user-friendly summary of the differences.
+Focus on the conceptual changes rather than the underlying Mermaid node IDs (e.g., A, B, C1).
+Instead, describe changes based on the visible labels of nodes and relationships.
 
 Provide a concise summary of the differences as a natural language bullet-point list.
 Order the bullet points by following the general flow of the diagrams (e.g., top-to-bottom, left-to-right, or by logical sequence if apparent).
-Each bullet point should directly describe a single, significant change. Do NOT use bolded prefixes like "ADDED Node:".
-Instead, use natural sentence structures. For example:
-* Node 'F' (View Dashboard) was added to Diagram New.
-* The label for node 'D' changed from "Login Success" in Diagram Old to "Access Granted!" in Diagram New.
-* A new relationship was added from node 'D' to node 'F' in Diagram New.
+Each bullet point should directly describe a single, significant change.
+
+Examples of desired output:
+* The step "Process 1" was changed to "Process 1 Rev.A".
+* A new decision point "Is user authenticated?" was added.
+* A new path was added from "User Login" to "View Dashboard".
+* The "Submit Form" step was removed.
+* The connection between "Validate Input" and "Show Error" now includes the condition "If invalid".
 
 Focus on:
-- Added or removed nodes, including their labels.
-- Modifications to node labels.
-- Added or removed relationships (links/arrows), specifying source, target, and any label.
+- Added or removed elements (nodes/shapes), described by their visible labels.
+- Modifications to the visible labels of existing elements.
+- Added or removed relationships (links/arrows), described by the labels of the connected elements and any label on the relationship itself.
 - Modifications to relationship labels.
-- Added or removed subgraphs, noting their titles.
+- Added or removed groups or subgraphs, described by their titles.
 
-De-emphasize or omit purely cosmetic style changes (like minor color adjustments of existing elements) unless they are part of a new 'classDef' that implies new functionality or state.
+De-emphasize or omit:
+- References to internal Mermaid node IDs (like A, B, node1, etc.) unless the ID itself is the visible label and has semantic meaning.
+- Purely cosmetic style changes (like minor color adjustments of existing elements) unless they are part of a new 'classDef' that implies new functionality or state.
+
 You MUST NOT ask any clarifying questions.
 The entire response must be only the bullet-point list of differences.
 
@@ -769,6 +971,8 @@ ${mermaidCodeNew}
 
 Key Differences:
 `;
+            // --- END OF UPDATED PROMPT ---
+
             let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
             const payload = { contents: chatHistory };
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeApiKey}`;
@@ -777,6 +981,7 @@ Key Differences:
                 if (!response.ok) {
                     const errorData = await response.json();
                     const errorMsg = errorData?.error?.message || response.statusText;
+                    // Check for specific API key related errors
                     if (errorMsg.includes("API key not valid") || errorMsg.includes("unregistered caller") || response.status === 400 || response.status === 403) {
                         aiExplanationOutput.innerHTML = `
                             <div class="api-key-instructions-error p-4 bg-red-900 border border-red-700 text-red-200 rounded-md">
@@ -797,19 +1002,28 @@ Key Differences:
                 }
             } catch (error) {
                 console.error("Error calling Gemini API:", error);
+                // Avoid overwriting specific API key error messages
                 if (!error.message.includes("API key not valid") && !error.message.includes("unregistered caller")) {
                     aiExplanationOutput.innerHTML = `<p class="text-red-500 p-4 text-center"><strong>Error during AI Analysis:</strong> ${error.message}</p>`;
                 }
             }
         }
 
+        // --- DOMContentLoaded ---
         document.addEventListener('DOMContentLoaded', () => {
-            loadApiKey();
-            setupPaneInteraction(paneOld);
-            setupPaneInteraction(paneNew);
-            document.getElementById('renderedDiagramOldOutput').addEventListener('click', () => { if (document.getElementById('renderedDiagramOldOutput').querySelector('svg')) { openModal('old'); } });
-            document.getElementById('renderedDiagramNewOutput').addEventListener('click', () => { if (document.getElementById('renderedDiagramNewOutput').querySelector('svg')) { openModal('new'); } });
+            loadApiKey(); // Load API key on page load
+            setupPaneInteraction(paneOld); // Setup interactions for old diagram modal pane
+            setupPaneInteraction(paneNew); // Setup interactions for new diagram modal pane
 
+            // Add click listeners to rendered diagram outputs to open modal
+            document.getElementById('renderedDiagramOldOutput').addEventListener('click', () => {
+                if (document.getElementById('renderedDiagramOldOutput').querySelector('svg')) { openModal('old'); }
+            });
+            document.getElementById('renderedDiagramNewOutput').addEventListener('click', () => {
+                if (document.getElementById('renderedDiagramNewOutput').querySelector('svg')) { openModal('new'); }
+            });
+
+            // --- Initial Sample Mermaid Code ---
             const initialMermaidCodeOld = `graph TD
     A[Start] --> B[Process 1]
     B --> D[End]
